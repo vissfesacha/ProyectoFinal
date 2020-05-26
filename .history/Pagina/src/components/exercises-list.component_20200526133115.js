@@ -4,13 +4,13 @@ import axios from 'axios';
 
 const Exercise = props => (
   <tr>
-    <td>{props.exercise.username}</td>
-    <td>{props.exercise.description}</td>
-    <td>{props.exercise.duration}</td>
-    <td>{props.exercise.date.substring(0,10)}</td>
-    <td>{props.exercise.image}</td>
+    <td>{props.products.username}</td>
+    <td>{props.products.description}</td>
+    <td>{props.products.value}</td>
+    <td>{props.products.date.substring(0,10)}</td>
+    <td>{props.products.image}</td>
     <td>
-      <Link to={"/edit/"+props.exercise._id}>edit</Link> | <a href="#" onClick={() => { props.deleteExercise(props.exercise._id) }}>delete</a>
+      <Link to={"/edit/"+props.products._id}>edit</Link> | <a href="#" onClick={() => { props.deleteProduct(props.products._id) }}>delete</a>
     </td>
   </tr>
 )
@@ -19,33 +19,33 @@ export default class ExercisesList extends Component {
   constructor(props) {
     super(props);
 
-    this.deleteExercise = this.deleteExercise.bind(this)
+    this.deleteProduct = this.deleteProduct.bind(this)
 
-    this.state = {exercises: []};
+    this.state = {products: []};
   }
 
   componentDidMount() {
-    axios.get('http://localhost:5000/exercises/')
+    axios.get('http://localhost:5000/products/')
       .then(response => {
-        this.setState({ exercises: response.data })
+        this.setState({ productss: response.data })
       })
       .catch((error) => {
         console.log(error);
       })
   }
 
-  deleteExercise(id) {
-    axios.delete('http://localhost:5000/exercises/'+id)
+  deleteProduct(id) {
+    axios.delete('http://localhost:5000/products/'+id)
       .then(response => { console.log(response.data)});
 
     this.setState({
-      exercises: this.state.exercises.filter(el => el._id !== id)
+      productss: this.state.productss.filter(el => el._id !== id)
     })
   }
 
   exerciseList() {
-    return this.state.exercises.map(currentexercise => {
-      return <Exercise exercise={currentexercise} deleteExercise={this.deleteExercise} key={currentexercise._id}/>;
+    return this.state.productss.map(currentexercise => {
+      return <Exercise products={currentexercise} deleteProduct={this.deleteProduct} key={currentexercise._id}/>;
     })
   }
 
@@ -58,7 +58,7 @@ export default class ExercisesList extends Component {
             <tr>
               <th>Username</th>
               <th>Description</th>
-              <th>Duration</th>
+              <th>Value</th>
               <th>Date</th>
               <th>Image</th>
               <th>Actions</th>

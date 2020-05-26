@@ -3,7 +3,7 @@ import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
-export default class CreateExercise extends Component {
+export default class EditExercise extends Component {
   constructor(props) {
     super(props);
 
@@ -18,18 +18,29 @@ export default class CreateExercise extends Component {
       description: '',
       duration: 0,
       date: new Date(),
-      users: [],
-      selectedFile:null
+      users: []
     }
   }
 
   componentDidMount() {
+    axios.get('http://localhost:5000/exercises/'+this.props.match.params.id)
+      .then(response => {
+        this.setState({
+          username: response.data.username,
+          description: response.data.description,
+          duration: response.data.duration,
+          date: new Date(response.data.date)
+        })   
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+
     axios.get('http://localhost:5000/users/')
       .then(response => {
         if (response.data.length > 0) {
           this.setState({
             users: response.data.map(user => user.username),
-            username: response.data[0].username
           })
         }
       })
@@ -65,34 +76,33 @@ export default class CreateExercise extends Component {
 
   onSubmit(e) {
     e.preventDefault();
+
     const fd=new  FormData();
-    
+
     fd.append('file',this.state.selectedFile,this.state.selectedFile.name);
     fd.append('username',this.state.username);
     fd.append('description',this.state.description);
-    fd.append('duration',this.state.duration);
+    fd.append('value',this.state.value);
     fd.append('date',this.state.date);
-   
- 
-    axios.post('http://localhost:5000/exercises/add', fd)
+    const exercise = {
+      username: this.state.username,
+      description: this.state.description,
+      duration: this.state.duration,
+      date: this.state.date
+    }
+
+    console.log(exercise);
+
+    axios.post('http://localhost:5000/exercises/update/' + this.props.match.params.id, fd)
       .then(res => console.log(res.data));
 
     window.location = '/';
   }
 
-  fileSelectedHandler=event=> {
-this.setState({
-  selectedFile:event.target.files[0]
-  
-})
-  }
-
- 
-
   render() {
     return (
     <div>
-      <h3>Create New Exercise Log</h3>
+      <h3>Create New Product </h3>
       <form onSubmit={this.onSubmit}>
         <div className="form-group"> 
           <label>Username: </label>
@@ -121,12 +131,12 @@ this.setState({
               />
         </div>
         <div className="form-group">
-          <label>Duration (in minutes): </label>
+          <label>Value (in USD): </label>
           <input 
               type="text" 
               className="form-control"
-              value={this.state.duration}
-              onChange={this.onChangeDuration}
+              value={this.state.value}
+              onChange={this.onChangeValue}
               />
         </div>
         <div className="form-group">
@@ -143,7 +153,7 @@ this.setState({
         </div>
       
         <div className="form-group">
-          <input type="submit" value="Create Exercise Log" className="btn btn-primary" />
+          <input type="submit" value="Create Product" className="btn btn-primary" />
         </div>
 
       </form>

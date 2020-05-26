@@ -9,7 +9,7 @@ const Exercise = props => (
     <td>{props.exercise.duration}</td>
     <td>{props.exercise.date.substring(0,10)}</td>
     <td>
-      <Link to={"/edit/"+props.exercise._id}>edit</Link> | <a href="#" onClick={() => { props.deleteExercise(props.exercise._id) }}>delete</a>
+      <Link to={"/edit/"+props.exercise._id}>edit</Link> | <a href="#" onClick={() => { props.deleteProduct(props.exercise._id) }}>delete</a>
     </td>
   </tr>
 )
@@ -18,7 +18,7 @@ export default class ExercisesList extends Component {
   constructor(props) {
     super(props);
 
-    this.deleteExercise = this.deleteExercise.bind(this)
+    this.deleteProduct = this.deleteProduct.bind(this)
 
     this.state = {exercises: []};
   }
@@ -33,7 +33,7 @@ export default class ExercisesList extends Component {
       })
   }
 
-  deleteExercise(id) {
+  deleteProduct(id) {
     axios.delete('http://localhost:5000/exercises/'+id)
       .then(response => { console.log(response.data)});
 
@@ -44,7 +44,7 @@ export default class ExercisesList extends Component {
 
   exerciseList() {
     return this.state.exercises.map(currentexercise => {
-      return <Exercise exercise={currentexercise} deleteExercise={this.deleteExercise} key={currentexercise._id}/>;
+      return <Exercise exercise={currentexercise} deleteProduct={this.deleteProduct} key={currentexercise._id}/>;
     })
   }
 

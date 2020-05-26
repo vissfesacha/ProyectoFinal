@@ -1,5 +1,5 @@
 const router = require('express').Router();
-let Exercise = require('../models/exercises.model.js');
+let Exercise = require('../models/products.model.js');
 const multer= require('multer');
 
 const storage = multer.diskStorage({
@@ -22,20 +22,20 @@ router.post('/add', upload.single('file'), (req, res, next) => {
   
   const username = req.body.username;
   const description = req.body.description;
-  const duration = Number(req.body.duration);
-  const date = Date.parse(req.body.date);
+  const value = Number(req.body.value);
+ // const date = Date.parse(req.body.date);
   const image = req.file.path;
 
   const newExercise = new Exercise({
     username,
     description,
-    duration,
-    date,
+    value,
+//    date,
     image
   });
 
   newExercise.save()
-  .then(() => res.json('Exercise added'))
+  .then(() => res.json('Product added'))
   .catch(err => res.status(400).json('Error: ' + err));
 });
 
@@ -56,7 +56,7 @@ router.route('/update/:id').post((req, res) => {
     .then(exercise => {
       exercise.username = req.body.username;
       exercise.description = req.body.description;
-      exercise.duration = Number(req.body.duration);
+      exercise.value = Number(req.body.value);
       exercise.date = Date.parse(req.body.date);
 
       exercise.save()
