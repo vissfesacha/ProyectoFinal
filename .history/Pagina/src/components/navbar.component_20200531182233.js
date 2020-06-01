@@ -15,11 +15,11 @@ export default class Navbar extends Component {
           </li>
           <li className="navbar-item">
         
-          <a href="/create" className="nav-link">Add Product </a>
-       
+          <Link to="/create" className="nav-link">Add Product </Link>
+       if
           </li>
           <li className="navbar-item">
-          <a href="/user" className="nav-link">Create User</a>
+          <Link to="/user" className="nav-link">Create User</Link>
           </li>
           <li className="navbar-item">
           <Link to="/login" className="nav-link">Login</Link>

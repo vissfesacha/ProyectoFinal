@@ -48,7 +48,7 @@ router.route('/:id').get((req, res) => {
 
 router.route('/:id').delete((req, res) => {
   Products.findByIdAndDelete(req.params.id)
-    .then(() => res.json('Product deleted.'))
+    .then(() => res.json('Exercise deleted.'))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 router.post('/update/:id', upload.single('file'), (req, res, next) => {
