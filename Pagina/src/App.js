@@ -15,14 +15,21 @@ import AuthenticatorComponent from './components/Authenticator.component';
 function App() {
   return (
     <Router>
-    <div className="container">
+    <div >
     <Navbar />
     <br/>
     <Route path="/edit/:id" component={EditProduct} /> 
     <Route path="/" exact component={ProductsList} />
-    <AuthenticatorComponent>
     <Route path="/create" component={AddProduct} />
-    </AuthenticatorComponent>
+    <Route 
+    path="/create"  
+    render={(props) => 
+        <div>
+            <AuthenticatorComponent />
+            <AddProduct />
+        </div> 
+    } 
+/>
     <Route path="/user" component={CreateUser} />
     <Route path="/login" component={Login} /> 
     </div>
