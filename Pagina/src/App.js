@@ -1,23 +1,20 @@
 import React from 'react';
 import {BrowserRouter as Router,Route} from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css"
 
-import Navbar from "./components/navbar.component"
-import ProductsList from "./components/productsList.component";
-import EditProduct from "./components/editProduct.component";
 
-import AddProduct from "./components/addProduct.component";
-import CreateUser from "./components/createUser.component";
+import ProductsList from "./views/landing";
+import EditProduct from "./views/editproduct";
 
-import Login from "./components/login.component";
+import AddProduct from "./views/addproduct";
+import CreateUser from "./views/singup";
+
+import Login from "./views/login";
 import AuthenticatorComponent from './components/Authenticator.component';
 
 function App() {
   return (
     <Router>
     <div >
-    <Navbar />
-    <br/>
     <Route path="/edit/:id" component={EditProduct} /> 
     <Route path="/" exact component={ProductsList} />
     <Route path="/create" component={AddProduct} />
