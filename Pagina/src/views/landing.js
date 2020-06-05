@@ -66,7 +66,7 @@ const LandingPage=()=> {
                 <h2 className="title">Who we are?</h2>
                 <h5 className="description">
                   According to the National Oceanic and Atmospheric
-                  Administration, Ted, Scambos, NSIDClead scentist, puts the
+                  Administratiosn, Ted, Scambos, NSIDClead scentist, puts the
                   potentially record low maximum sea ice extent tihs year down
                   to low ice extent in the Pacific and a late drop in ice extent
                   in the Barents Sea.
