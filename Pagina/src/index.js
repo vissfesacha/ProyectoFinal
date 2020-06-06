@@ -12,6 +12,14 @@ import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
+<link
+  href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200"
+  rel="stylesheet"
+/>
+<link
+  href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
+  rel="stylesheet"
+/>
     <App />
   </React.StrictMode>,
   document.getElementById('root')

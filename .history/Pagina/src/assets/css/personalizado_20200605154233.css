@@ -1,0 +1,40 @@
+.altura{
+    height:50vh;
+    width: 100%;
+    object-fit:cover;
+}
+.pa0{
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.grid-wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    grid-gap: 20px;
+}
+.box {
+    background-color: #444;
+    padding: 130px;
+    margin: 20px;
+}
+
+.box > img {
+    width: 100%;
+}
+.zone {
+    /*padding:30px 50px;*/
+    /*cursor:pointer;*/
+    color:#FFF;
+    font-size:2em;
+    border-radius:4px;
+    border:1px solid #bbb;
+    transition: all 0.3s linear;
+}
+
+.zone:hover {
+    -webkit-box-shadow:rgba(0,0,0,0.8) 0px 5px 15px, inset rgba(0,0,0,0.15) 0px -10px 20px;
+    -moz-box-shadow:rgba(0,0,0,0.8) 0px 5px 15px, inset rgba(0,0,0,0.15) 0px -10px 20px;
+    -o-box-shadow:rgba(0,0,0,0.8) 0px 5px 15px, inset rgba(0,0,0,0.15) 0px -10px 20px;
+    box-shadow:rgba(0,0,0,0.8) 0px 5px 15px, inset rgba(0,0,0,0.15) 0px -10px 20px;
+}

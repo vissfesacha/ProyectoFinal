@@ -13,11 +13,18 @@ import {
   NavLink,
   Nav,
   Container,
-  UncontrolledTooltip
+  UncontrolledTooltip,
+  UncontrolledCollapse,
+  FormGroup,
+  Form,
+  Input,
+  InputGroupAddon,
+  InputGroupText,
+  InputGroup
 } from "reactstrap";
-
+import 'tachyons';
 function ExamplesNavbar() {
-  const [navbarColor, setNavbarColor] = React.useState("navbar-blue");
+  const [navbarColor, setNavbarColor] = React.useState("navbar-white");
   const [collapseOpen, setCollapseOpen] = React.useState(false);
   React.useEffect(() => {
     const updateNavbarColor = () => {
@@ -30,7 +37,7 @@ function ExamplesNavbar() {
         document.documentElement.scrollTop < 400 ||
         document.body.scrollTop < 400
       ) {
-        setNavbarColor("navbar-transparent");
+        setNavbarColor("navbar-white");
       }
     };
     window.addEventListener("scroll", updateNavbarColor);
@@ -49,7 +56,7 @@ function ExamplesNavbar() {
           }}
         />
       ) : null}
-      <Navbar className={"fixed-top " + navbarColor} color="info" expand="lg">
+      <Navbar className={"fixed-top " + navbarColor} color="white" expand="lg">
         <Container>
           <UncontrolledDropdown className="button-dropdown">
             <DropdownToggle
@@ -168,6 +175,11 @@ function ExamplesNavbar() {
                 </UncontrolledTooltip>
               </NavItem>
             </Nav>
+                <input
+                className="pa2 ba b--black bg-lightest-black" 
+                type="search"
+                placeholder="Buscar"
+                /> 
           </Collapse>
         </Container>
       </Navbar>

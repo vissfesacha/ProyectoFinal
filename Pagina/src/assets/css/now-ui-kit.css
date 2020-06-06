@@ -3831,7 +3831,6 @@ img {
   display: block; }
 
 .carousel .carousel-inner {
-  box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3);
   border-radius: 0.1875rem; }
 
 .carousel .card {
