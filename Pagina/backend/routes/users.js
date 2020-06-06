@@ -3,6 +3,7 @@ const router = require('express').Router();
 let User = require('../models/user.model');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const checkAuth= require('../middleware/checkauth');
 
 router.route('/').get((req, res) => {
   User.find()
@@ -93,11 +94,58 @@ router.post('/auth', (req, res) => {
       return res.status(401).json({
         message:'Authentication Failed'
     });
-  
     }
+});
+
+router.post("/addToCart",(req,res) => { 
+
+  User.findById({ _id: req.body.userid }, (err, userInfo) => {
+    let duplicate = false;
+    
+    console.log(userInfo.cart)
+  
+    userInfo.cart.forEach((item) => {
+        if (item.id == req.body.id) {
+            console.log('jola')
+            duplicate = true;
+        }
+    })
    
-
-
+    if (duplicate) {
+      console.log('xd4')
+        User.findByIdAndUpdate(
+            { _id: req.body.userid, "cart.id": req.body.id },
+            { $inc: { "cart.$.quantity": 1 } },
+            { new: true }, // 
+            (err, userInfo) => {
+                if (err) return res.json({ success: false, err });
+                res.status(200).json(userInfo.cart)
+            }
+        )
+    } else {
+      console.log('xd5')
+        User.findByIdAndUpdate({ _id: req.body.id },
+            {
+                $push: {
+                    cart: {
+                        _id: req.body.id,
+                        quantity: 1,
+                        date: Date.now()
+                    }
+                }
+            },
+            (err, userInfo) => {
+                if (err) return res.json({ success: false, err });
+                res.status(200).json(userInfo)
+            }
+        )
+    }
+})
+})
+//se supone que devuelva la info de lo que esta en el cart
+router.get('/products_in_cart', (req, res) => {
+ 
+  
 });
 
 module.exports = router;

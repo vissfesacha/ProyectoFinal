@@ -21,16 +21,24 @@ router.route('/').get((req, res) => {
 
 router.post('/add', upload.single('file'), (req, res, next) => {
   
-  const username = req.body.username;
+  const model = req.body.model;
+  const code = req.body.code;
+  const brand = req.body.brand;
   const description = req.body.description;
   const value = Number(req.body.value);
+  const size = req.body.size;
+  const stock = req.body.stock;
   const date = Date.parse(req.body.date);
   const image = req.file.path;
-
+ 
   const newExercise = new Products({
-    username,
+    model,
+    code,
+    brand,
     description,
     value,
+    size,
+    stock,
     date,
     image
   });
@@ -42,6 +50,18 @@ router.post('/add', upload.single('file'), (req, res, next) => {
 
 router.route('/:id').get((req, res) => {
   Products.findById(req.params.id)
+    .then(products => res.json(products))
+    .catch(err => res.status(400).json('Error: ' + err));
+});
+//devuelve los productos con los ids que estaban en el carro, se supone
+router.route('/products_by_ids/:ids').get((req, res) => {
+  let ids = req.params.ids.split(',');
+  productIds=[];
+  productIds = ids.map(item =>{
+    return item
+  })
+  Products.find({'_id': {$in: productIds}})
+    .exec()
     .then(products => res.json(products))
     .catch(err => res.status(400).json('Error: ' + err));
 });
