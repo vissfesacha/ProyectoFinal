@@ -17,17 +17,17 @@ const items = [
   {
     src: require("assets/img/summersale.jpg"),
     altText: "Nature, United States",
-    caption: "Nature, United States"
+    caption: ""
   },
   {
     src: require("assets/img/superstar.jpg"),
     altText: "Somewhere Beyond, United States",
-    caption: "Somewhere Beyond, United States"
+    caption: ""
   },
   {
-    src: require("assets/img/download.jfif"),
+    src: require("assets/img/Vans-Banner.jpg"),
     altText: "Yellowstone National Park, United States",
-    caption: "Yellowstone National Park, United States"
+    caption: ""
   }
 ];
 
@@ -58,7 +58,7 @@ function CarouselSection() {
     <>
       <div className="Section3" id="carousel">
         <Row className="justify-content-center">
-          <Col sm="12" lg="12" md="12">
+          <Col sm="11" lg="11" md="11">
             <Carousel className="unegro"
               activeIndex={activeIndex}
               next={next}

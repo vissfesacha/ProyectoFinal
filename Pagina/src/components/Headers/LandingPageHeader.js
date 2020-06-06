@@ -2,6 +2,14 @@ import React from "react";
 
 // reactstrap components
 import { Button, Container } from "reactstrap";
+import 'assets/css/personalizado.css'
+import {
+  Form,
+  Input,
+  InputGroupAddon,
+  InputGroupText,
+  InputGroup
+} from "reactstrap";
 
 // core components
 
@@ -33,7 +41,7 @@ function LandingPageHeader() {
         ></div>
         <div className="content-center">
           <Container>
-            <h1 className="title">This is our great company.</h1>
+            <h1 className="title textochevere">CHANGE YOUR STYLE.</h1>
             <div className="text-center">
               <Button
                 className="btn-icon btn-round"
@@ -60,16 +68,6 @@ function LandingPageHeader() {
                 <i className="fab fa-google-plus"></i>
               </Button>
             </div>
-            <Form className="form-inline ml-auto" data-background-color="">
-              <InputGroup>
-                <InputGroupAddon addonType="prepend">
-                  <InputGroupText>
-                    <i className="now-ui-icons ui-1_email-85"></i>
-                  </InputGroupText>
-                </InputGroupAddon>
-                <Input placeholder="Your Email..." type="text"></Input>
-              </InputGroup>
-            </Form>
           </Container>
         </div>
       </div>

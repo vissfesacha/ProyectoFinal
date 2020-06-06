@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Carousel from 'components/index-sections/Carousel'
 import 'assets/css/personalizado.css'
+import Header from 'components/Headers/LandingPageHeader';
 // core components
 import {
   Container,
@@ -26,9 +27,9 @@ const Product = (props) => (
   </tr>
 )
 const SeccionP = (props) => (
-  <div className="Section2 container">
+  <div className="Section2 ">
   <Row className="justify-content-center">
-    <Col sm="12" lg="12" md="12">
+    <Col sm="11" lg="11" md="11">
       <div className="conte zone blue grid-wrapper2">
         <div className="zone grid-wrapper">
           <div className="border1 box zone">
@@ -82,6 +83,7 @@ const LandingPage = () => {
   return (
     <>
       <ExamplesNavbar />
+      <Header />
       <Carousel />
       <SeccionP />
       <div className="Section4">
@@ -92,16 +94,9 @@ const LandingPage = () => {
                     className="image-container image-left"
                     style={{
                       backgroundImage:
-                        "url(" + require("assets/img/login.jpg") + ")"
+                        "url(" + require("assets/img/garcos.jpg") + ")"
                     }}
                   >
-                    <p className="blockquote blockquote-dark">
-                      "Over the span of the satellite record, Arctic sea ice has
-                      been declining significantly, while sea ice in the
-                      Antarctichas increased very slightly" <br></br>
-                      <br></br>
-                      <small>-NOAA</small>
-                    </p>
                   </div>
 
                 </Col>
@@ -113,9 +108,8 @@ const LandingPage = () => {
                         "url(" + require("assets/img/bg1.jpg") + ")"
                     }}
                   ></div>
-                  <h3>
-                    So what does the new record for the lowest level of winter
-                    ice actually mean
+                  <h3 className="textochevere">
+                    CAMBIA TU ESTILO
                   </h3>
                 </Col>
               </Row>

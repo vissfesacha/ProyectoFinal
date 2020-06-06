@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Sarpanch:900');
+
 .altura{
     height:50vh;
     width: 100%;
-    object-fit:cover;
+    object-fit:fill;
 }
 .pa0{
     padding-left: 0px;
@@ -32,6 +34,7 @@
 
 .box > img {
     width: 15vw;
+    min-width: 180px;
     height: 15vh;
     align-self: center;
     justify-content: center;
@@ -46,16 +49,13 @@
 .border1:hover{
     border: black 1px solid ;
 }
-.conte{
-    padding-left: 30px;
-    padding-right: 30px;
-}
 .titulos{
     display: inline-block;
     justify-self: center;
     align-self: center;
     margin: 0;
     padding: 10px;
+    padding-top: 25px;
     font-size: 0.16em;
     text-justify: center;
     text-align: center;
@@ -90,3 +90,11 @@
 box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.75) !important;
   border: #EAEFEF 1px solid;
 }
+.textochevere {
+    font-family: 'Sarpanch', sans-serif;
+    font-size: 8vmin;
+    margin: 0;
+    padding: 30px;
+    color: #1d9099;
+    text-shadow: 1vmin 1vmin 0 #E79C10, -1vmin -1vmin 0 #D53A33;
+  }
