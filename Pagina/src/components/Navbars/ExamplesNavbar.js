@@ -102,6 +102,11 @@ function ExamplesNavbar() {
             >
               Now Ui Kit
             </NavbarBrand>
+            <input
+                className="tamano pa2 ba b--black bg-lightest-black" 
+                type="search"
+                placeholder="Buscar"
+                /> 
             <UncontrolledTooltip target="#navbar-brand">
               Designed by Invision. Coded by Creative Tim
             </UncontrolledTooltip>
@@ -175,12 +180,8 @@ function ExamplesNavbar() {
                 </UncontrolledTooltip>
               </NavItem>
             </Nav>
-                <input
-                className="pa2 ba b--black bg-lightest-black" 
-                type="search"
-                placeholder="Buscar"
-                /> 
           </Collapse>
+          
         </Container>
       </Navbar>
     </>
