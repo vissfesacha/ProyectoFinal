@@ -21,7 +21,7 @@ function App() {
     <Route path="/search" exact component={Search} />
     <Route path="/" exact component={ProductsList} />
     <Route path="/x" exact component={ProductsList2} />
-    <Route path="/create" component={AddProduct} />
+    
     <Route 
     path="/create"  
     render={(props) => 

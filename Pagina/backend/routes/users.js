@@ -1,6 +1,7 @@
 
 const router = require('express').Router();
 let User = require('../models/user.model');
+let Product = require('../models/products.model');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const checkAuth= require('../middleware/checkauth');
@@ -97,38 +98,44 @@ router.post('/auth', (req, res) => {
     }
 });
 
-router.post("/addToCart",(req,res) => { 
+router.post("/addToCart", async (req,res) => { 
 
   User.findById({ _id: req.body.userid }, (err, userInfo) => {
     let duplicate = false;
+  
     
-    console.log(userInfo.cart)
   
     userInfo.cart.forEach((item) => {
-        if (item.id == req.body.id) {
-            console.log('jola')
-            duplicate = true;
-        }
+        if (item.productID == req.body.id) {
+                duplicate = true;
+         }
     })
    
+  
+   
     if (duplicate) {
-      console.log('xd4')
-        User.findByIdAndUpdate(
-            { _id: req.body.userid, "cart.id": req.body.id },
-            { $inc: { "cart.$.quantity": 1 } },
-            { new: true }, // 
-            (err, userInfo) => {
-                if (err) return res.json({ success: false, err });
-                res.status(200).json(userInfo.cart)
-            }
-        )
+
+
+    
+  User.findOneAndUpdate(
+  { _id: req.body.userid, "cart.productID": req.body.id },
+  { $inc: { "cart.$.quantity": 1 } },
+  { new: true }, 
+  (err, userInfo) => {
+      if (err) return res.json({ success: false, err });
+      res.status(200).json(userInfo.cart)
+  }
+)
+        
     } else {
+        
+
       console.log('xd5')
-        User.findByIdAndUpdate({ _id: req.body.id },
+        User.findByIdAndUpdate({ _id: req.body.userid },
             {
                 $push: {
                     cart: {
-                        _id: req.body.id,
+                        productID: req.body.id,
                         quantity: 1,
                         date: Date.now()
                     }
@@ -143,8 +150,46 @@ router.post("/addToCart",(req,res) => {
 })
 })
 //se supone que devuelva la info de lo que esta en el cart
-router.get('/products_in_cart', (req, res) => {
+router.get('/carProducts', async (req, res) => {
+  
+  
+  try {
+    var productos=[];
+    const user= await User.findById({_id:req.body.userid});
+
+   for (let i = 0; i < user.cart.length; i++) {
+  const pro= await Product.findById({_id:user.cart[i].productID});
+  console.log("no entiendo",pro.description)
+  const newpro = ({
+    _id:pro._id,
+    model:pro.model,
+    code:pro.code,
+    brand:pro.brand,
+    description:pro.description,
+    value:pro.value,
+    size:pro.size,
+    stock:pro.stock,
+    date:pro.date,
+    image:pro.image,
+    total:user.cart[i].quantity*pro.value
+  });
+  
+  
+  
+  productos.push(newpro);
+  productos.push(pro);
  
+}  
+
+
+
+        
+  res.send(productos);
+    
+  } catch (error) {
+    res.send(error)
+  }
+
   
 });
 

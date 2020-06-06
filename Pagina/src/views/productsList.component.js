@@ -4,13 +4,17 @@ import axios from 'axios';
 
 const Product = props => (
   <tr>
-    <td>{props.products.username}</td>
+    <td>{props.products.model}</td>
+    <td>{props.products.code}</td>
+    <td>{props.products.brand}</td>
     <td>{props.products.description}</td>
     <td>{props.products.value}</td>
+    <td>{props.products.size}</td>
+    <td>{props.products.stock}</td>
     <td>{props.products.date.substring(0,10)}</td>
     <td>{props.products.image}</td>
     <td>
-      <Link to={"/edit/"+props.products._id}>edit</Link> | <a href="#" onClick={() => { props.deleteProduct(props.products._id) }}>delete</a>
+    <a href={"/edit/"+props.products._id}>edit</a> | <a href="#" onClick={() => { props.deleteProduct(props.products._id) }}>delete</a> {/*| <a onClick={addToCarthandler(props.product._id)}>Add to cart</a>*/}
     </td>
   </tr>
 )
@@ -56,9 +60,13 @@ export default class ProductsList extends Component {
         <table className="table">
           <thead className="thead-light">
             <tr>
-              <th>Username</th>
+              <th>Model</th>
+              <th>Code</th>
+              <th>Brand</th>
               <th>Description</th>
+              <th>Size</th>
               <th>Value</th>
+              <th>Stock</th>
               <th>Date</th>
               <th>Image</th>
               <th>Actions</th>

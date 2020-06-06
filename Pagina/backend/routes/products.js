@@ -75,11 +75,16 @@ router.post('/update/:id', upload.single('file'), (req, res, next) => {
 
   Products.findById(req.params.id)
     .then(products => {
-      products.username = req.body.username;
+      products.model = req.body.model;
+      products.code = req.body.code;
+      products.brand = req.body.brand;
       products.description = req.body.description;
       products.value = Number(req.body.value);
+      products.size = req.body.size;
+      products.stock = req.body.stock;
       products.date = Date.parse(req.body.date);
       products.image= req.file.path;
+     
       products.save()
         .then(() => res.json('Product updated'))
         .catch(err => res.status(400).json('Error: ' + err));

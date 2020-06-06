@@ -8,7 +8,7 @@ function CartPage(props) {
     const [InfoProdsCart, setInfoProdsCart] = useState({})
     const union=[]
     useEffect(()=>{
-            axios.get('http://localhost:5000/users/products_in_cart', jwt_decode(localStorage.getItem("token")).userId)
+            axios.get('http://localhost:5000/users/carProducts', jwt_decode(localStorage.getItem("token")).userId)
             .then(response =>{
                 setProdsCart(response.data)
                 console.log('state '+ProdsCart)

@@ -7,18 +7,24 @@ export default class EditProduct extends Component {
   constructor(props) {
     super(props);
 
-    this.onChangeUsername = this.onChangeUsername.bind(this);
+    this.onChangeModel = this.onChangeModel.bind(this);
+    this.onChangeCode = this.onChangeCode.bind(this);
+    this.onChangeBrand = this.onChangeBrand.bind(this);
+    this.onChangeSize = this.onChangeSize.bind(this);
+    this.onChangeStock = this.onChangeStock.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
     this.onChangeValue = this.onChangeValue.bind(this);
     this.onChangeDate = this.onChangeDate.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
     this.state = {
-      username: '',
-      description: '',
+      model: '',
+      code: '',
+      brand: '',
       value: 0,
+      size: 0,
+      stock: 0,
       date: new Date(),
-      users: [],
       selectedFile:null
     }
   }
@@ -27,9 +33,14 @@ export default class EditProduct extends Component {
     axios.get('http://localhost:5000/products/'+this.props.match.params.id)
       .then(response => {
         this.setState({
-          username: response.data.username,
+          model: response.data.model,
+          code: response.data.code,
+          brand: response.data.brand,
+          value: response.data.value,
+          size: response.data.size,
+          stock: response.data.stock,
           description: response.data.description,
-          duration: response.data.duration,
+          selectedFile: response.data.selectedFile,
           date: new Date(response.data.date)
         })   
       })
@@ -37,20 +48,34 @@ export default class EditProduct extends Component {
         console.log(error);
       })
 
-    axios.get('http://localhost:5000/users/')
-      .then(response => {
-        if (response.data.length > 0) {
-          this.setState({
-            users: response.data.map(user => user.username),
-          })
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      })
+  
 
   }
-
+  onChangeModel(e) {
+    this.setState({
+      model: e.target.value
+    })
+  }
+  onChangeCode(e) {
+    this.setState({
+      code: e.target.value
+    })
+  }
+  onChangeSize(e) {
+    this.setState({
+      size: e.target.value
+    })
+  }
+  onChangeBrand(e) {
+    this.setState({
+      brand: e.target.value
+    })
+  }
+  onChangeStock(e) {
+    this.setState({
+      stock: e.target.value
+    })
+  }
   onChangeUsername(e) {
     this.setState({
       username: e.target.value
@@ -76,30 +101,25 @@ export default class EditProduct extends Component {
       date: date
     })
   }
-
   onSubmit(e) {
     e.preventDefault();
-
+    
     const fd=new  FormData();
 
     fd.append('file',this.state.selectedFile,this.state.selectedFile.name);
-    fd.append('username',this.state.username);
+    fd.append('model',this.state.model);
+    fd.append('code',this.state.code);
+    fd.append('brand',this.state.brand);
     fd.append('description',this.state.description);
     fd.append('value',this.state.value);
+    fd.append('size',this.state.size);
+    fd.append('stock',this.state.stock);
     fd.append('date',this.state.date);
-    const exercise = {
-      username: this.state.username,
-      description: this.state.description,
-      duration: this.state.duration,
-      date: this.state.date
-    }
-
-    console.log(exercise);
 
     axios.post('http://localhost:5000/products/update/' + this.props.match.params.id, fd)
       .then(res => console.log(res.data));
 
-    window.location = '/';
+    window.location = '/x';
   }
   fileSelectedHandler=event=> {
     this.setState({
@@ -110,63 +130,93 @@ export default class EditProduct extends Component {
 
   render() {
     return (
-    <div>
-      <h3>Edit  Product </h3>
-      <form onSubmit={this.onSubmit}>
-        <div className="form-group"> 
-          <label>Username: </label>
-          <select ref="userInput"
-              required
-              className="form-control"
-              value={this.state.username}
-              onChange={this.onChangeUsername}>
-              {
-                this.state.users.map(function(user) {
-                  return <option 
-                    key={user}
-                    value={user}>{user}
-                    </option>;
-                })
-              }
-          </select>
-        </div>
-        <div className="form-group"> 
-          <label>Description: </label>
-          <input  type="text"
-              required
-              className="form-control"
-              value={this.state.description}
-              onChange={this.onChangeDescription}
-              />
-        </div>
-        <div className="form-group">
-          <label>Value (in USD): </label>
-          <input 
-              type="text" 
-              className="form-control"
-              value={this.state.value}
-              onChange={this.onChangeValue}
-              />
-        </div>
-        <div className="form-group">
-          <label>Date: </label>
-          <div>
-            <DatePicker
-              selected={this.state.date}
-              onChange={this.onChangeDate}
-            />
+      <div>
+        <h3>Edit Product </h3>
+        <form onSubmit={this.onSubmit}>
+          
+          <div className="form-group"> 
+            <label>Model: </label>
+            <input  type="text"
+                required
+                className="form-control"
+                value={this.state.model}
+                onChange={this.onChangeModel}
+                />
           </div>
-        </div>
-        <div className="App">
-        <input type="file" onChange={this.fileSelectedHandler}/>
-        </div>
-      
-        <div className="form-group">
-          <input type="submit" value="Edit Product" className="btn btn-primary" />
-        </div>
-
-      </form>
-    </div>
-    )
+          <div className="form-group"> 
+            <label>Description: </label>
+            <input  type="text"
+                required
+                className="form-control"
+                value={this.state.description}
+                onChange={this.onChangeDescription}
+                />
+          </div>
+          <div className="form-group">
+            <label>Code: </label>
+            <input type="text" 
+                required
+                className="form-control"
+                value={this.state.code}
+                onChange={this.onChangeCode}
+                />
+          </div>
+          <div className="form-group">
+            <label>Brand: </label>
+            <input type="text" 
+                required
+                className="form-control"
+                value={this.state.brand}
+                onChange={this.onChangeBrand}
+                />
+          </div>
+          <div className="form-group">
+            <label>Value (in COP): </label>
+            <input 
+                type="text" 
+                required
+                className="form-control"
+                value={this.state.value}
+                onChange={this.onChangeValue}
+                />
+          </div>
+          <div className="form-group">
+            <label>Size: </label>
+            <input type="text" 
+                required
+                className="form-control"
+                value={this.state.size}
+                onChange={this.onChangeSize}
+                />
+          </div>
+          <div className="form-group">
+            <label>Stock: </label>
+            <input type="text" 
+                required
+                className="form-control"
+                value={this.state.stock}
+                onChange={this.onChangeStock}
+                />
+          </div>
+          <div className="form-group">
+            <label>Date: </label>
+            <div>
+              <DatePicker
+                selected={this.state.date}
+                onChange={this.onChangeDate}
+              />
+            </div>
+          </div>
+          <div className="App">
+          <input type="file" onChange={this.fileSelectedHandler}/>
+          </div>
+        
+          <div className="form-group">
+            <input type="submit" value="Edit Product" className="btn btn-primary" />
+          </div>
+  
+        </form>
+      </div>
+      )
   }
 }
