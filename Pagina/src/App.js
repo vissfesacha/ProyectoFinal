@@ -7,6 +7,7 @@ import EditProduct from "./views/editproduct";
 
 import AddProduct from "./views/addproduct";
 import CreateUser from "./views/singup";
+import Search from "./views/search";
 
 import Login from "./views/login";
 import AuthenticatorComponent from './components/Authenticator.component';
@@ -16,6 +17,7 @@ function App() {
     <Router>
     <div >
     <Route path="/edit/:id" component={EditProduct} /> 
+    <Route path="/search" exact component={Search} />
     <Route path="/" exact component={ProductsList} />
     <Route path="/create" component={AddProduct} />
     <Route 
@@ -27,7 +29,7 @@ function App() {
         </div> 
     } 
 />
-    <Route path="/user" component={CreateUser} />
+    <Route path="/singup" component={CreateUser} />
     <Route path="/login" component={Login} /> 
     </div>
   </Router>

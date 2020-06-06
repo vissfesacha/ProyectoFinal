@@ -31,7 +31,10 @@
     justify-content: center;
     align-items: center;
 }
-
+.tamano{
+    size: 40;
+    width: 26em;
+}
 .box > img {
     width: 15vw;
     min-width: 180px;
@@ -55,7 +58,7 @@
     align-self: center;
     margin: 0;
     padding: 10px;
-    padding-top: 25px;
+    MARGIN-top: 20px;
     font-size: 0.16em;
     text-justify: center;
     text-align: center;

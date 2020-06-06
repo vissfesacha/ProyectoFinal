@@ -14,18 +14,7 @@ import {
 } from "reactstrap";
 import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
 import DefaultFooter from "components/Footers/DefaultFooter.js";
-const Product = (props) => (
-  <tr>
-    <td>{props.products.username}</td>
-    <td>{props.products.description}</td>
-    <td>{props.products.value}</td>
-    <td>{props.products.date.substring(0, 10)}</td>
-    <td>{props.products.image}</td>
-    <td>
-      <Link to={"/edit/" + props.products._id}>edit</Link> | <a href="#" onClick={() => { props.deleteProduct(props.products._id) }}>delete</a>
-    </td>
-  </tr>
-)
+
 const SeccionP = (props) => (
   <div className="Section2 ">
   <Row className="justify-content-center">
@@ -50,6 +39,15 @@ const LandingPage = () => {
   const [firstFocus, setFirstFocus] = React.useState(false);
   const [lastFocus, setLastFocus] = React.useState(false);
   const [productss, setproductss] = React.useState([])
+    React.useEffect(() => {
+    axios.get('http://localhost:5000/products/')
+      .then(response => {
+        setproductss(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+  });
   React.useEffect(() => {
     document.body.classList.add("landing-page");
     document.body.classList.add("sidebar-collapse");
@@ -59,27 +57,7 @@ const LandingPage = () => {
       document.body.classList.remove("sidebar-collapse");
     };
   });
-  React.useEffect(() => {
-    axios.get('http://localhost:5000/products/')
-      .then(response => {
-        setproductss(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-  });
-  function productList() {
-    return productss.map(currentexercise => {
-      return <Product products={currentexercise} jhkey={currentexercise._id} />;
-    })
-  }
 
-  function deleteProduct(id) {
-    console.log("hola mani");
-    axios.delete('http://localhost:5000/products/' + id)
-      .then(response => { console.log(response.data) });
-    setproductss(productss.filter(el => el._id !== id));
-  }
   return (
     <>
       <ExamplesNavbar />
