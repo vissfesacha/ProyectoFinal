@@ -58,15 +58,17 @@ router.route('/:id').get((req, res) => {
     .then(products => res.json(products))
     .catch(err => res.status(400).json('Error: ' + err));
 });
-
-
-
+/*
 router.route('/criteria/:criteria').get((req, res) => {
-  console.log('xd ',req.params.criteria)
   Products.find({model :{ $regex: '.*' + req.params.criteria + '.*' }})
     .then(products => res.json(products))
     .catch(err => res.status(400).json('Error: ' + err));
-});
+});*/
+router.get('/criteria', async (req, res) => {
+  console.log("xddd",req.body.margot)
+   const c= await Products.find({model :req.body.margot});
+     console.log(c);
+  });
 
 router.route('/:id').delete((req, res) => {
   Products.findByIdAndDelete(req.params.id)
