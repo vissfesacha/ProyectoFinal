@@ -31,11 +31,13 @@ export default class ProductsList extends Component {
   componentDidMount() {
     axios.get('http://localhost:5000/products/')
       .then(response => {
-        this.setState({ productss: response.data })
+        console.log("JAJAJAJAJJASDHJBASDHJ",response.data)
+                this.setState({ productss: response.data })
       })
       .catch((error) => {
         console.log(error);
       })
+
   }
 
   deleteProduct(id) {

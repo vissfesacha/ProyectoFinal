@@ -1,40 +1,52 @@
 import React, { useEffect, useState }from 'react'
+//import { Result, Empty } from 'antd';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 
 function CartPage(props) {
-    const [Total, setTotal] = useState(0)
-    const [ProdsCart, setProdsCart] = useState({})
-    const [InfoProdsCart, setInfoProdsCart] = useState({})
-    const union=[]
+    const [Token, setToken] = useState('')
+    const [ProdsCart, setProdsCart] = useState([])
+    const [ShowTotal, setShowTotal] = useState(false)
+    var cont=0
     useEffect(()=>{
-            axios.get('http://localhost:5000/users/carProducts', jwt_decode(localStorage.getItem("token")).userId)
-            .then(response =>{
-                setProdsCart(response.data)
-                console.log('state '+ProdsCart)
-            })
-            axios.get('http://localhost:5000/users/products_by_ids/', ProdsCart)
-            .then(response =>{
-                setInfoProdsCart(response.data)
-                console.log('state '+InfoProdsCart)
-            })
-            if(ProdsCart.length>0 && InfoProdsCart.length>0){
-                calculateTotal(ProdsCart,InfoProdsCart)
-            }
-    }, [])
-    const calculateTotal = (ProdsCart,InfoProdsCart) =>{
-        let total = 0;
-         union = ProdsCart.map((e,i)=>{
-            let temp = InfoProdsCart.find(element => element._id === e._id)
-            if (temp.value){
-                total += parseInt(temp.value,10) * e.quantity
-            }
-        })
-        setTotal(total)
+        const xd={token:localStorage.getItem("token")}
+        axios.post('http://localhost:5000/users/auth', xd)
+        .then(res =>{ 
+            setToken(res.data.userId)
+          })
+    if(Token){
+        console.log('JAJAJJAJAJA ',Token) 
+      axios.get('http://localhost:5000/users/carProducts/'+Token)
+      .then(response => {
+        setProdsCart(response.data)
+      })
+      .catch((error) => {
+        console.log(error);
+      })
     }
+    }, [Token])
     
-    const renderItems = () =>{
+    const removeItem=(productId)=>{
+        const IDs ={
+            prodid: productId,
+            userid: jwt_decode(localStorage.getItem("token")).userId
+            }
+        axios.get('http://localhost:5000/users/removeFromCart', IDs)
 
+    }
+    const renderItems = () =>{
+        
+        return ProdsCart.map(product => {
+            cont+=product.total
+            return <tr key={product._id}>
+            <td>{product.model}</td>
+            <td>{product.quantity} UNDS</td>
+            <td>$ {product.value}</td>
+            <td><button 
+                  onClick={()=> removeItem(product._id)}
+                  >Remove </button> </td>
+          </tr>;
+          })
     }
 
     return (
@@ -51,13 +63,23 @@ function CartPage(props) {
                     </tr>
                 </thead>
                 <tbody>
-                   {/* {renderItems()}*/}
+                 {renderItems()}
                 </tbody>
             </table>
-            <div style ={{marginTop :'3rem'}}>
-                <h2>Total amount: $ </h2>
-            </div>
+            
+                    <div style={{ marginTop: '3rem' }}>
+                        <h2>Total amount: ${cont} </h2>
+                    </div>
+                        <div style={{
+                            width: '100%', display: 'flex', flexDirection: 'column',
+                            justifyContent: 'center'
+                        }}>
+                            <br />
+                            
+                            <p>No Items In the Cart</p>
 
+                        </div>
+                
 
            </div>
         </div>
