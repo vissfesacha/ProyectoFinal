@@ -39,17 +39,8 @@ const LandingPage = () => {
   const [firstFocus, setFirstFocus] = React.useState(false);
   const [lastFocus, setLastFocus] = React.useState(false);
   const [productss, setproductss] = React.useState([])
-    React.useEffect(() => {
-    axios.get('http://localhost:5000/products/')
-      .then(response => {
-        setproductss(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-  });
-  React.useEffect(() => {
-    document.body.classList.add("landing-page");
+   React.useEffect(() => {
+  document.body.classList.add("landing-page");
     document.body.classList.add("sidebar-collapse");
     document.documentElement.classList.remove("nav-open");
     return function cleanup() {

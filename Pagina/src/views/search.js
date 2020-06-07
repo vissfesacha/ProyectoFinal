@@ -19,6 +19,7 @@ import {
 } from "reactstrap";
 import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
 import DefaultFooter from "components/Footers/DefaultFooter.js";
+
 const ProductList = React.memo(({ productos }) => {
   return productos.map((currentexercise) => {
     console.log(currentexercise.image);
@@ -29,6 +30,9 @@ const Search = () => {
   const [firstFocus, setFirstFocus] = React.useState(false);
   const [lastFocus, setLastFocus] = React.useState(false);
   const [productss, setproductss] = React.useState([]);
+  const [productss2, setproductss2] = React.useState([]);
+  const [preciomin, setpreciomin] = React.useState(0);
+  const [preciomax, setpreciomax] = React.useState(9999999999999);
   const [filtro, setfiltro] = React.useState({
     talla: [],
     estilo: [],
@@ -48,6 +52,7 @@ const Search = () => {
     axios.get('http://localhost:5000/products/')
       .then(response => {
         setproductss(response.data);
+        setproductss2(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -55,15 +60,44 @@ const Search = () => {
   }, []);
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    let preciomin = document.getElementById('preciomininput').value
+    let preciomax = document.getElementById('preciomaxinput').value
+    if(preciomin==''){
+      preciomin=0;
+    }
+    if(preciomax==''){
+      preciomax=9999999999;
+    }
     let brands = []
-    productss.map((brand) => { brands.push(brand.brand) })
-    brands = brands.map(v => v.toLowerCase());
-    console.log(brands)
-    let array2 = filtro.marca.map(v => v.toLowerCase());
-    let filteredArray1 = brands.filter(el => array2.includes(el));
-    console.log(filteredArray1);
-    alert(`Tallas ${filtro.talla}${filtro.estilo}${filtro.marca}`)
-
+    let filteredArray1 = []
+    let arrayx=[]
+    let sw1=false;
+    let sw2=false;
+    if(filtro.marca.length==0){
+      productss.forEach(element => { filtro.marca.push(element.brand)
+      });
+      sw1=true;
+    }
+    if(filtro.talla.length==0){
+      productss.forEach(element => { filtro.talla.push(element.size)
+      });
+      sw2=true;
+    }
+    filtro.talla.forEach(element=> {arrayx.push(parseInt(element, 10));} )
+    let arrayy = filtro.marca.map(v => v.toLowerCase());
+    productss.forEach(element => {
+        console.log(arrayx)
+       var y=element.brand.toLowerCase()
+      if (arrayy.includes(y)&&arrayx.includes(element.size)&&element.value>=preciomin&&element.value<=preciomax) {
+      filteredArray1.push(element)
+    }});
+    if(sw1){
+      filtro.marca.length=0
+    }
+    if(sw2){
+      filtro.talla.length=0
+    }
+    setproductss2(filteredArray1)
   }
   const handlepush = (value, nombre) => {
     console.log(nombre)
@@ -88,7 +122,8 @@ const Search = () => {
         <Row className=" justify-content-center">
           <Col className="borderl" sm="3" lg="3" md="3">
             <div className="flexcolumn">
-              <form onSubmit={handleSubmit} onChange={e => handlepush(e.target.value, e.target.name)}>
+              <form onSubmit={handleSubmit}>
+              <form onChange={e => handlepush(e.target.value, e.target.name)}>
                 <Button className="wd" color="dark" type="submit">
                   Aplicar filtros
                 </Button>
@@ -350,12 +385,12 @@ const Search = () => {
                       <Label check>
                         <Input
                           defaultValue="option3"
-                          value="veles"
+                          value="velez"
                           id="inlineCheckbox3"
                           type="checkbox"
                           name="marca"
                         ></Input>
-                       Veles{" "}
+                       Velez{" "}
                         <span className="form-check-sign">
                           <span className="check"></span>
                         </span>
@@ -363,35 +398,34 @@ const Search = () => {
                     </FormGroup>
                   </Form>
                 </div>
-              </form>
-            </div>
-            <hr className="lista" />
-            <div><p>Precio</p>
-              <Form>
+                <hr className="lista" />
+                </form>
+                <div><p>Precio</p>
                 <FormGroup className="has-success">
                   <label htmlFor="preciominimo">Precio Minimo</label>
                   <Input
                     aria-describedby="preciomin"
                     id="preciominimo"
                     color="dark"
+                    id="preciomininput"
                   ></Input>
                 </FormGroup>
                 <FormGroup className="has-success">
                   <label htmlFor="preciomaximo">Precio Maximo</label>
                   <Input
-                    id="preciomax"
+                    id="preciomaxinput"
                   ></Input>
                 </FormGroup>
                 <FormGroup check>
                 </FormGroup>
-              </Form>
             </div>
-            <hr className="lista" />
-
+                <hr className="lista" />
+                </form>
+                 </div>
           </Col>
           <Col sm="9" lg="9" md="9">
-            <div className="elementos">
-              <ProductList productos={productss} />
+            <div className="elementos">          
+              <ProductList productos={productss2} />
             </div>
           </Col>
         </Row>
