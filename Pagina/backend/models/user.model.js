@@ -18,6 +18,10 @@ const userSchema = new Schema({
    cart: {
         type: Array,
         default: []
+},
+admin:{
+  type: Boolean,
+  default:false
 }
   
 }, {

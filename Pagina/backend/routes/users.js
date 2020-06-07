@@ -4,7 +4,7 @@ let User = require('../models/user.model');
 let Product = require('../models/products.model');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const checkAuth= require('../middleware/checkauth');
+
 
 router.route('/').get((req, res) => {
   User.find()
@@ -12,15 +12,6 @@ router.route('/').get((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/add').post((req, res) => {
-  const username = req.body.username;
-
-  const newUser = new User({ username });
-
-  newUser.save()
-    .then(() => res.json('User added'))
-    .catch(err => res.status(400).json('Error: ' + err));
-});
 
 router.post('/signup', (req, res) => {
   bcrypt.hash(req.body.password, 10, (err, hash) => {
@@ -34,8 +25,8 @@ router.post('/signup', (req, res) => {
 
       const user = new User({
         username: req.body.username,
-        password: hash
-
+        password: hash,
+       
       });
       user.save()
         .then(() => res.json('User added'))
@@ -66,10 +57,7 @@ router.post('/login', (req, res) => {
           );
           
           return res.send(token);
-        //  return res.status(200).json({
-       //     message: 'Authentication successfull',
-      //      token:token
-       //   });
+      
         }
         res.status(200).json({
           message: 'Authentication failed'
@@ -87,9 +75,7 @@ router.post('/auth', (req, res) => {
       const decoded = jwt.verify(req.body.token,"Secretin");  
       
      if (decoded) {
-         res.send({
-         message:"naisu"
-       })
+         res.send(decoded);
      }
     } catch (error) {
       return res.status(401).json({
@@ -98,7 +84,28 @@ router.post('/auth', (req, res) => {
     }
 });
 
-router.post("/addToCart", async (req,res) => { 
+router.post('/checkAdmin', async (req, res) => {
+ 
+  try {
+    const user= await User.findById({_id:req.body.userId});
+    if (user.admin==true) {
+      res.send("xd");
+    }else{
+      throw new Error("ERROR!");
+    }
+  } catch (error) {
+    return res.status(401).json({
+      message:'Authentication Failed'
+  });
+  }
+});
+
+
+
+
+
+
+router.post("/addToCart",  (req,res) => { 
 
   User.findById({ _id: req.body.userid }, (err, userInfo) => {
     let duplicate = false;
@@ -149,17 +156,73 @@ router.post("/addToCart", async (req,res) => {
     }
 })
 })
-//se supone que devuelva la info de lo que esta en el cart
-router.get('/carProducts', async (req, res) => {
+
+
+
+
+
+router.post('/RemoveCart', async (req, res) => {
+  let borrable=false;
+  
+  const f=await User.findById({ _id: req.body.userid});
+  f.cart.forEach((item) => {
+    if (item.productID == req.body.id) {
+           if (item.quantity==1) {
+             borrable=true;
+           }else{
+            borrable=false;
+           }
+     }
+})
+ console.log("estado",borrable)
+if (borrable==false) {
+
+const xd=await User.findOneAndUpdate(
+  { _id: req.body.userid, "cart.productID": req.body.id },
+  { $inc: { "cart.$.quantity": -1 } },
+  { new: true }
+  
+)
+
+res.status(200).json(xd)
+}else{
+
+const xd=await User.findOneAndUpdate(
+  { _id: req.body.userid, "cart.productID": req.body.id },
+  { $pull: { "cart":{"productID":req.body.id}} },
+  { new: true }
+  
+)
+
+res.status(200).json(xd)
+}
+
+
+  
+  try {
+   
+      
+  } catch (error) {
+   res.send({message:"error"})
+       
+  }
+  
+  
+
+});
+
+
+
+router.get('/carProducts/:userid', async (req, res) => {
   
   
   try {
     var productos=[];
-    const user= await User.findById({_id:req.body.userid});
+    const user= await User.findById({_id:req.params.userid});
 
    for (let i = 0; i < user.cart.length; i++) {
   const pro= await Product.findById({_id:user.cart[i].productID});
-  console.log("no entiendo",pro.description)
+ 
   const newpro = ({
     _id:pro._id,
     model:pro.model,
@@ -171,21 +234,20 @@ router.get('/carProducts', async (req, res) => {
     stock:pro.stock,
     date:pro.date,
     image:pro.image,
+    quantity:user.cart[i].quantity,
     total:user.cart[i].quantity*pro.value
   });
   
   
   
+  
   productos.push(newpro);
-  productos.push(pro);
  
 }  
 
-
-
         
-  res.send(productos);
-    
+  res.json(productos);
+ 
   } catch (error) {
     res.send(error)
   }

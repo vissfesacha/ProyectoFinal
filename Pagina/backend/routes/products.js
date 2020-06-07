@@ -1,7 +1,7 @@
 const router = require('express').Router();
 let Products = require('../models/products.model.js');
 const multer= require('multer');
-const checkAuth= require('../middleware/checkauth');
+
 
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
@@ -31,7 +31,7 @@ router.post('/add', upload.single('file'), (req, res, next) => {
   const date = Date.parse(req.body.date);
   const image = req.file.path;
  
-  const newExercise = new Products({
+  const newProduct = new Products({
     model,
     code,
     brand,
@@ -43,7 +43,7 @@ router.post('/add', upload.single('file'), (req, res, next) => {
     image
   });
 
-  newExercise.save()
+  newProduct.save()
   .then(() => res.json('Product added'))
   .catch(err => res.status(400).json('Error: ' + err));
 });
@@ -53,6 +53,7 @@ router.route('/:id').get((req, res) => {
     .then(products => res.json(products))
     .catch(err => res.status(400).json('Error: ' + err));
 });
+
 //devuelve los productos con los ids que estaban en el carro, se supone
 router.route('/products_by_ids/:ids').get((req, res) => {
   let ids = req.params.ids.split(',');
@@ -66,11 +67,13 @@ router.route('/products_by_ids/:ids').get((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
+
 router.route('/:id').delete((req, res) => {
   Products.findByIdAndDelete(req.params.id)
     .then(() => res.json('Product deleted.'))
     .catch(err => res.status(400).json('Error: ' + err));
 });
+
 router.post('/update/:id', upload.single('file'), (req, res, next) => {
 
   Products.findById(req.params.id)
