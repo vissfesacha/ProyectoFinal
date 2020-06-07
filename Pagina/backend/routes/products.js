@@ -59,19 +59,11 @@ router.route('/:id').get((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-//devuelve los productos con los ids que estaban en el carro, se supone
-router.route('/products_by_ids/:ids').get((req, res) => {
-  let ids = req.params.ids.split(',');
-  productIds=[];
-  productIds = ids.map(item =>{
-    return item
-  })
-  Products.find({'_id': {$in: productIds}})
-    .exec()
+router.route('/criteria').get((req, res) => {
+  Products.find({model :/req.body.model/i})
     .then(products => res.json(products))
     .catch(err => res.status(400).json('Error: ' + err));
 });
-
 
 router.route('/:id').delete((req, res) => {
   Products.findByIdAndDelete(req.params.id)

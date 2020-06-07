@@ -57,18 +57,33 @@ function ExamplesNavbar() {
 
 const jwt =localStorage.getItem("token");
 var admin =localStorage.getItem("admin");
-var logeado,adminProducts,adminCreate,usercart;
+var logeado,adminProducts,adminCreate,usercart,loggeduser,loggeduser2;
 if (jwt) {
    logeado= <NavItem>
               <NavLink to="/logout" tag={Link}>
                   LOGOUT
                 </NavLink>
               </NavItem>;
-   usercart=<NavItem>
+ 
+   
+    usercart=<NavItem>
    <NavLink to="/user/cart" tag={Link}>
        Shopping Cart
      </NavLink>
    </NavItem>;
+}else{
+  loggeduser= <NavItem>
+  <NavLink to="/login" tag={Link}>
+      LOGIN
+    </NavLink>
+  </NavItem>;
+
+ loggeduser2= <NavItem>
+  <NavLink to="/signup" tag={Link}>
+    SignUp
+  </NavLink>
+</NavItem>
+
 }
 
 if (admin  === "true") {
@@ -88,11 +103,7 @@ if (admin  === "true") {
 
 
 function handle(){
-  //if(e.keyCode === 13){
-   
-
-   // alert("Enter was pressed was presses");
-//}
+ 
 }
 
   return (
@@ -191,18 +202,10 @@ function handle(){
             
 
             <Nav navbar>
-              <NavItem>
-                <NavLink to="/signup" tag={Link}>
-                  SignUp
-                </NavLink>
-              </NavItem>
-
-              <NavItem>
-              <NavLink to="/login" tag={Link}>
-                  LOGIN
-                </NavLink>
-              </NavItem>
-            
+              
+           
+              {loggeduser2}
+              {loggeduser}
               {adminProducts}
               {adminCreate}
               {usercart}
