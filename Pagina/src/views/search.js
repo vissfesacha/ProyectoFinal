@@ -19,6 +19,8 @@ import {
 } from "reactstrap";
 import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
 import DefaultFooter from "components/Footers/DefaultFooter.js";
+
+
 const ProductList = React.memo(({ productos }) => {
   return productos.map((currentexercise) => {
     console.log(currentexercise.image);
@@ -79,6 +81,9 @@ const Search = () => {
   return (
     <>
       <ExamplesNavbar />
+
+   
+
       <div className="container Section32">
         <ul className="lista tw Section22">
           <il className="ele">Hombre</il>

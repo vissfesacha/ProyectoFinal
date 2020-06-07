@@ -29,8 +29,13 @@ router.post('/add', upload.single('file'), (req, res, next) => {
   const size = req.body.size;
   const stock = req.body.stock;
   const date = Date.parse(req.body.date);
-  const image = req.file.path;
+  const image = "/"+req.file.originalname;
+
+  
+
+
  
+  
   const newProduct = new Products({
     model,
     code,
@@ -86,7 +91,7 @@ router.post('/update/:id', upload.single('file'), (req, res, next) => {
       products.size = req.body.size;
       products.stock = req.body.stock;
       products.date = Date.parse(req.body.date);
-      products.image= req.file.path;
+      products.image= "/"+req.file.originalname;
      
       products.save()
         .then(() => res.json('Product updated'))

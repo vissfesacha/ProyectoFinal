@@ -26,6 +26,7 @@ const usersRouter = require('./routes/users');
 
 app.use('/products', productsRouter);
 app.use('/users', usersRouter);
+app.use(express.static('upload'));
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);

@@ -171,7 +171,6 @@ function handle(){
             <button
               className="navbar-toggler navbar-toggler"
               onClick={() => {
-                alert("Hello! I am an alert box!!");
                 document.documentElement.classList.toggle("nav-open");
                 setCollapseOpen(!collapseOpen);
               }}

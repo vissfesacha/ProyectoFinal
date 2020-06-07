@@ -104,7 +104,7 @@ export default class AddProduct extends Component {
     axios.post('http://localhost:5000/products/add', fd)
       .then(res => console.log(res.data));
 
-   window.location = '/x';
+  // window.location = '/products';
   }
 
   fileSelectedHandler=event=> {
