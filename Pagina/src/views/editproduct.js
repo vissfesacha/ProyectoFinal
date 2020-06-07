@@ -119,7 +119,7 @@ export default class EditProduct extends Component {
     axios.post('http://localhost:5000/products/update/' + this.props.match.params.id, fd)
       .then(res => console.log(res.data));
 
-    window.location = '/x';
+    window.location = '/products';
   }
   fileSelectedHandler=event=> {
     this.setState({

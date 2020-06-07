@@ -37,11 +37,13 @@ export default class CreateUser extends Component {
 
 
     axios.post('http://localhost:5000/users/signup', user)
-      .then(res => console.log(res.data)
-      
-      );
-      window.location = '/';
-    
+       .then(res => {
+        alert("Successful registration")
+        this.props.history.push('/');
+       })
+       .catch((error) => {
+         alert("This username already exists")
+       });
   }
 
   render() {

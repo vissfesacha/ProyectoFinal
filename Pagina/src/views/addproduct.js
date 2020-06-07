@@ -104,7 +104,7 @@ export default class AddProduct extends Component {
     axios.post('http://localhost:5000/products/add', fd)
       .then(res => console.log(res.data));
 
-   window.location = '/x';
+  // window.location = '/products';
   }
 
   fileSelectedHandler=event=> {
@@ -204,6 +204,11 @@ this.setState({
         </div>
 
       </form>
+
+      <form action="/">
+       <input class="btn btn-success" type="submit" value="Volver a la pagina principal" />
+       </form>
+        
     </div>
     )
   }

@@ -113,6 +113,9 @@ const Search = () => {
   return (
     <>
       <ExamplesNavbar />
+
+   
+
       <div className="container Section32">
         <ul className="lista tw Section22">
           <il className="ele">Hombre</il>

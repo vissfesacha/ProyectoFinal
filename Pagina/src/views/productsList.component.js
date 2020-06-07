@@ -78,6 +78,13 @@ export default class ProductsList extends Component {
             { this.productList() }
           </tbody>
         </table>
+
+
+        <form action="/">
+       <input class="btn btn-success" type="submit" value="Volver a la pagina principal" />
+       </form>
+        
+
       </div>
     )
   }
