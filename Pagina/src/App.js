@@ -12,7 +12,7 @@ import Search from "./views/search";
 
 import Login from "./views/login";
 import AuthenticatorComponent from './components/Authenticator.component';
-
+import Prueba from 'views/prueba'
 function App() {
   return (
     <Router>
@@ -21,7 +21,7 @@ function App() {
     <Route path="/search" exact component={Search} />
     <Route path="/" exact component={ProductsList} />
     <Route path="/x" exact component={ProductsList2} />
-    
+    <Route path="/prueba" exact component={Prueba} />
     <Route 
     path="/create"  
     render={(props) => 
