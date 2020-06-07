@@ -38,11 +38,16 @@ export default class Login extends Component {
 
   axios.post('http://localhost:5000/users/login', user)
   .then(res => {
-
-   localStorage.setItem('token',res.data);
+   localStorage.setItem('token',res.data.token);
+   localStorage.setItem('admin',res.data.admin);
+ 
+   alert("Successful login")
    this.props.history.push('/');
-  }
-  );
+  })
+  .catch((error) => {
+    alert("Failed authentication")
+  });
+  
 
    
 

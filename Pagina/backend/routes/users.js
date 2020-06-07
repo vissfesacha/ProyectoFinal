@@ -55,8 +55,12 @@ router.post('/login', (req, res) => {
             expiresIn:"1h"
           }
           );
-          
-          return res.send(token);
+         
+
+          return res.send(
+            {token:token,
+              admin:user[0].admin
+            });
       
         }
         res.status(200).json({
@@ -137,7 +141,7 @@ router.post("/addToCart",  (req,res) => {
     } else {
         
 
-      console.log('xd5')
+      
         User.findByIdAndUpdate({ _id: req.body.userid },
             {
                 $push: {
@@ -174,7 +178,7 @@ router.post('/RemoveCart', async (req, res) => {
            }
      }
 })
- console.log("estado",borrable)
+
 if (borrable==false) {
 
 const xd=await User.findOneAndUpdate(
@@ -211,7 +215,20 @@ res.status(200).json(xd)
 
 });
 
+router.post('/RemoveAllCart', async (req, res) => {
 
+  const xd=await User.findOneAndUpdate(
+    { _id: req.body.userid},
+    {  $unset: { "cart": 1 } },
+    { new: true }
+  )
+  res.status(200).json(xd)
+    try {
+    } catch (error) {
+     res.send({message:"error"})
+         
+    }
+  });
 
 router.get('/carProducts/:userid', async (req, res) => {
   

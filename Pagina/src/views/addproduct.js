@@ -204,6 +204,11 @@ this.setState({
         </div>
 
       </form>
+
+      <form action="/">
+       <input class="btn btn-success" type="submit" value="Volver a la pagina principal" />
+       </form>
+        
     </div>
     )
   }

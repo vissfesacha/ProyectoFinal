@@ -1,12 +1,17 @@
 import React, { useEffect, useState }from 'react'
 //import { Result, Empty } from 'antd';
 import axios from 'axios';
-import jwt_decode from 'jwt-decode';
+//import jwt_decode from 'jwt-decode';
+import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
+
+
 
 function CartPage(props) {
     const [Token, setToken] = useState('')
     const [ProdsCart, setProdsCart] = useState([])
     const [ShowTotal, setShowTotal] = useState(false)
+    const [ShowSuccess, setShowSuccess] = useState(false)
+    const [value, setValue] = useState(0); // integer state
     var cont=0
     useEffect(()=>{
         const xd={token:localStorage.getItem("token")}
@@ -15,7 +20,6 @@ function CartPage(props) {
             setToken(res.data.userId)
           })
     if(Token){
-        console.log('JAJAJJAJAJA ',Token) 
       axios.get('http://localhost:5000/users/carProducts/'+Token)
       .then(response => {
         setProdsCart(response.data)
@@ -23,20 +27,71 @@ function CartPage(props) {
       .catch((error) => {
         console.log(error);
       })
+      console.log(ProdsCart)
+      if(ProdsCart){
+        setShowTotal(true)
+      }
     }
-    }, [Token])
-    
+    }, [Token,value])
+
+ 
+
+
     const removeItem=(productId)=>{
         const IDs ={
-            prodid: productId,
-            userid: jwt_decode(localStorage.getItem("token")).userId
+            id: productId,
+            userid: Token
             }
-        axios.get('http://localhost:5000/users/removeFromCart', IDs)
-
+        axios.post('http://localhost:5000/users/RemoveCart', IDs)
+        .then(response => {
+            //setProdsCart(response.data)
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+          axios.get('http://localhost:5000/users/carProducts/'+Token)
+          .then(response => {
+            setProdsCart(response => {
+                const newArray = response;
+                return newArray;
+            })
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+          setValue(value => ++value)
+    }
+    const removeAllCart =() =>{
+        const IDs ={
+            userid: Token,
+            prods: ProdsCart
+            }
+        axios.post('http://localhost:5000/users/RemoveAllCart', IDs)
+            .then(response => {
+                //setProdsCart(response.data)
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+        axios.get('http://localhost:5000/users/carProducts/' + Token)
+            .then(response => {
+                setProdsCart(response => {
+                    const newArray = response;
+                    return newArray;
+                })
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+        setValue(value => ++value)
     }
     const renderItems = () =>{
-        
+        if(!Array.isArray(ProdsCart)){
+           setShowTotal(false)
+           setValue(value => ++value)
+        }
         return ProdsCart.map(product => {
+            
             cont+=product.total
             return <tr key={product._id}>
             <td>{product.model}</td>
@@ -48,8 +103,10 @@ function CartPage(props) {
           </tr>;
           })
     }
-
+    
     return (
+        <>
+        <ExamplesNavbar />
         <div style={{width: '85%', margin: '3rem auto'}}>
            <h1>My Cart</h1>
            <div>
@@ -70,19 +127,21 @@ function CartPage(props) {
                     <div style={{ marginTop: '3rem' }}>
                         <h2>Total amount: ${cont} </h2>
                     </div>
+                    
                         <div style={{
                             width: '100%', display: 'flex', flexDirection: 'column',
                             justifyContent: 'center'
                         }}>
                             <br />
-                            
-                            <p>No Items In the Cart</p>
+                            <button 
+                            onClick={()=> removeAllCart()}
+                            >Buy </button> 
 
                         </div>
                 
-
            </div>
         </div>
+        </>
     )
 }
 

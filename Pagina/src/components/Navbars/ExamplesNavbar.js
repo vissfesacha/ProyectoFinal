@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import axios from 'axios';
 // reactstrap components
 import {
   Collapse,
@@ -45,6 +46,55 @@ function ExamplesNavbar() {
       window.removeEventListener("scroll", updateNavbarColor);
     };
   });
+
+ 
+
+
+
+
+
+
+
+const jwt =localStorage.getItem("token");
+var admin =localStorage.getItem("admin");
+var logeado,adminProducts,adminCreate,usercart;
+if (jwt) {
+   logeado= <NavItem>
+              <NavLink to="/logout" tag={Link}>
+                  LOGOUT
+                </NavLink>
+              </NavItem>;
+   usercart=<NavItem>
+   <NavLink to="/user/cart" tag={Link}>
+       Shopping Cart
+     </NavLink>
+   </NavItem>;
+}
+
+if (admin  === "true") {
+
+  adminProducts=<NavItem>
+        <NavLink to="/products" tag={Link}>
+            Products
+         </NavLink>
+        </NavItem>;
+
+         adminCreate=<NavItem>
+         <NavLink to="/create" tag={Link}>
+             Add a Product
+          </NavLink>
+         </NavItem>;
+}
+
+
+function handle(){
+  //if(e.keyCode === 13){
+   
+
+   // alert("Enter was pressed was presses");
+//}
+}
+
   return (
     <>
       {collapseOpen ? (
@@ -96,23 +146,32 @@ function ExamplesNavbar() {
           </UncontrolledDropdown>
           <div className="navbar-translate">
             <NavbarBrand
-              href="https://demos.creative-tim.com/now-ui-kit-react/index?ref=nukr-examples-navbar"
+              href="/"
               target="_blank"
               id="navbar-brand"
             >
-              Now Ui Kit
+              Home
             </NavbarBrand>
-            <input
-                className="tamano pa2 ba b--black bg-lightest-black" 
-                type="search"
-                placeholder="Buscar"
-                /> 
+
+
+
+
+                     <form action="/search/" onsubmit={handle}>
+                    <input  className="tamano pa2 ba b--black bg-lightest-black"  type="search"  name="" placeholder="Buscar"/>
+                    </form>
+    
+
+
+
+
+                
             <UncontrolledTooltip target="#navbar-brand">
-              Designed by Invision. Coded by Creative Tim
+              Designed by JesuSachaFalquez
             </UncontrolledTooltip>
             <button
               className="navbar-toggler navbar-toggler"
               onClick={() => {
+                alert("Hello! I am an alert box!!");
                 document.documentElement.classList.toggle("nav-open");
                 setCollapseOpen(!collapseOpen);
               }}
@@ -129,20 +188,31 @@ function ExamplesNavbar() {
             isOpen={collapseOpen}
             navbar
           >
+
+            
+
             <Nav navbar>
               <NavItem>
-                <NavLink to="/index" tag={Link}>
-                  Back to Kit
+                <NavLink to="/signup" tag={Link}>
+                  SignUp
                 </NavLink>
               </NavItem>
+
               <NavItem>
-                <NavLink href="https://github.com/creativetimofficial/now-ui-kit-react/issues?ref=creativetim">
-                  Have an issue?
+              <NavLink to="/login" tag={Link}>
+                  LOGIN
                 </NavLink>
               </NavItem>
+            
+              {adminProducts}
+              {adminCreate}
+              {usercart}
+              {logeado}
+           
+
               <NavItem>
                 <NavLink
-                  href="https://twitter.com/CreativeTim?ref=creativetim"
+                  href="https://twitter.com/sesantanderf"
                   target="_blank"
                   id="twitter-tooltip"
                 >
@@ -155,7 +225,7 @@ function ExamplesNavbar() {
               </NavItem>
               <NavItem>
                 <NavLink
-                  href="https://www.facebook.com/CreativeTim?ref=creativetim"
+                  href="hhttps://www.facebook.com/gustavopetrourrego"
                   target="_blank"
                   id="facebook-tooltip"
                 >
@@ -168,7 +238,7 @@ function ExamplesNavbar() {
               </NavItem>
               <NavItem>
                 <NavLink
-                  href="https://www.instagram.com/CreativeTimOfficial?ref=creativetim"
+                  href="https://www.instagram.com/eyevallenat0/"
                   target="_blank"
                   id="instagram-tooltip"
                 >
