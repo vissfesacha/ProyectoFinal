@@ -171,7 +171,7 @@ function onSearchHandle(e){
 
 
 
-            <form action={"/search/"+Search}>
+            <form action={"/search/", Search}>
               <input onChange={onSearchHandle} className="tamano pa2 ba b--black bg-lightest-black" type="search" name="" placeholder="Buscar" />
             </form>
     

@@ -27,7 +27,7 @@ import 'tachyons';
 function ExamplesNavbar(props) {
   const [navbarColor, setNavbarColor] = React.useState("navbar-white");
   const [collapseOpen, setCollapseOpen] = React.useState(false);
-  const [Search, setSearch] = React.useState('');
+  const [Search, setSearch] = React.useState(false);
   React.useEffect(() => {
     const updateNavbarColor = () => {
       if (
@@ -171,7 +171,7 @@ function onSearchHandle(e){
 
 
 
-            <form action={"/search/"+Search}>
+            <form action={"/search/", Search}>
               <input onChange={onSearchHandle} className="tamano pa2 ba b--black bg-lightest-black" type="search" name="" placeholder="Buscar" />
             </form>
     

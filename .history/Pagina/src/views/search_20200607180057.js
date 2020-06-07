@@ -52,7 +52,7 @@ const Search = (props) => {
   React.useEffect(() => {
 
     console.log('heeey muy buenas a todos ',criteria)
-    axios.get('http://localhost:5000/products/criteria/'+criteria)
+    axios.get('http://localhost:5000/producs/criteria/'+criteria)
       .then(response => {
         setproductss(response.data);
         setproductss2(response.data);

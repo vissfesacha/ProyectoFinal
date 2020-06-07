@@ -59,9 +59,8 @@ router.route('/:id').get((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/criteria/:criteria').get((req, res) => {
-  console.log('xd ',req.params.criteria)
-  Products.find({model :{ $regex: '.*' + req.params.criteria + '.*' }})
+router.route('/criteria').get((req, res) => {
+  Products.find({model :{ $regex: '.*' + req.params. + '.*' }})
     .then(products => res.json(products))
     .catch(err => res.status(400).json('Error: ' + err));
 });
