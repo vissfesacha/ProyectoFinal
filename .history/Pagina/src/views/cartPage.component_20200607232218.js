@@ -27,7 +27,7 @@ function CartPage(props) {
         .catch((error) => {
             console.log(error);
         })
-        //console.log(ProdsCart)
+        console.log(ProdsCart)
             if(ProdsCart){
                 setShowTotal(true)
             }

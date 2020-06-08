@@ -94,6 +94,7 @@ if (admin  === "true") {
          </NavItem>;
 }
 
+
 function onSearchHandle(e){
 
   e.preventDefault(); // Ensure it is only this code that rusn
@@ -127,23 +128,49 @@ function onSearchHandle(e){
               <span className="button-bar"></span>
               <span className="button-bar"></span>
             </DropdownToggle>
+            <DropdownMenu aria-labelledby="navbarDropdown">
+              <DropdownItem header tag="a">
+                Dropdown header
+              </DropdownItem>
+              <DropdownItem href="#pablo" onClick={e => e.preventDefault()}>
+                Action
+              </DropdownItem>
+              <DropdownItem href="#pablo" onClick={e => e.preventDefault()}>
+                Another action
+              </DropdownItem>
+              <DropdownItem href="#pablo" onClick={e => e.preventDefault()}>
+                Something else here
+              </DropdownItem>
+              <DropdownItem divider></DropdownItem>
+              <DropdownItem href="#pablo" onClick={e => e.preventDefault()}>
+                Separated link
+              </DropdownItem>
+              <DropdownItem divider></DropdownItem>
+              <DropdownItem href="#pablo" onClick={e => e.preventDefault()}>
+                One more separated link
+              </DropdownItem>
+            </DropdownMenu>
           </UncontrolledDropdown>
-          <div className="navbar-translate hola">
+          <div className="navbar-translate">
             <NavbarBrand
               href="/"
+              target="_blank"
               id="navbar-brand"
             >
-              HOME
+              Home
             </NavbarBrand>
 
 
 
 
-            <form action={"/search/"+Search}>
-              <input onChange={onSearchHandle} className="tamano pa2 ba b--black bg-lightest-black" type="search" name="" 
-              placeholder= "Buscar..." />
+            <form action={"/search/"+ Search}>
+              <input onChange={onSearchHandle} className="tamano pa2 ba b--black bg-lightest-black" type="search" name="" placeholder="Buscar" />
             </form>
-            
+    
+          
+
+
+
                 
             <UncontrolledTooltip target="#navbar-brand">
               Designed by JesuSachaFalquez
@@ -179,11 +206,7 @@ function onSearchHandle(e){
               {adminCreate}
               {usercart}
               {logeado}
-              <NavItem>
-        <NavLink to="/search/" tag={Link}>
-            All Products
-         </NavLink>
-        </NavItem>
+           
 
               <NavItem>
                 <NavLink

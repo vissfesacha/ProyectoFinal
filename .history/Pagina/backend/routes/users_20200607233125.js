@@ -225,6 +225,7 @@ router.post('/RemoveAllCart', async (req, res) => {
 
 router.get('/carProducts/:userid', async (req, res) => {
   
+  console.log(req.params.userid)
     var productos=[];
     const user= await User.findById({_id:req.params.userid});
 

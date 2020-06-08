@@ -19,19 +19,19 @@ function CartPage(props) {
         .then(res =>{ 
             setToken(res.data.userId)
           })
-        if(Token){
-        axios.get('http://localhost:5000/users/carProducts/'+Token)
-        .then(response => {
-            setProdsCart(response.data)
-        })
-        .catch((error) => {
-            console.log(error);
-        })
-        //console.log(ProdsCart)
-            if(ProdsCart){
-                setShowTotal(true)
-            }
-        }
+    if(Token){
+      axios.get('http://localhost:5000/users/carProducts/'+Token)
+      .then(response => {
+        setProdsCart(response.data)
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      console.log(ProdsCart)
+      if(ProdsCart){
+        setShowTotal(true)
+      }
+    }
     }, [Token,value])
 
  

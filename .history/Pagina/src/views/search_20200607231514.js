@@ -53,7 +53,7 @@ const Search = (props) => {
 
     console.log('heeey muy buenas a todos ',criteria)
     if(!criteria){
-      axios.get('http://localhost:5000/products/')
+      axios.get('http://localhost:5000/products/criteria/')
       .then(response => {
         setproductss(response.data);
         setproductss2(response.data);
