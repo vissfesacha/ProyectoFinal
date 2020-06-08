@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
+import "tachyons";
 export default class Login extends Component {
   constructor(props) {
     super(props);
@@ -51,21 +52,18 @@ export default class Login extends Component {
 
    
 
-   // this.setState({
- //     username: '',
-   //   password:''
-  //  })
+  
   }
 
   
   
   render() {
     return (
-      <MDBContainer>
-        <MDBRow>
+      <MDBContainer >
+        <MDBRow >
           <MDBCol md="6">
 
-          <form onSubmit={this.onSubmit}>
+          <form onSubmit ={this.onSubmit}>
               <p className="h5 text-center mb-4">Sign in</p>
 
               <div className="grey-text">
