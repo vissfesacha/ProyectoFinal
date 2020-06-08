@@ -19,7 +19,7 @@ const SeccionP = (props) => (
   <div className="Section2 ">
   <Row className="justify-content-center">
     <Col sm="11" lg="11" md="11">
-      <div className="conte zone blue grid-wrapper2">
+      <div className="conte zone grid-wrapper2">
         <div className="zone grid-wrapper">
           <div className="border1 box zone">
             <img src={require('assets/img/accesorios.jpg')} /><p className="titulos">ACCESORIOS</p>
