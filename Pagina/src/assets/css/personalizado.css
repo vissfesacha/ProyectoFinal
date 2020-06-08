@@ -33,7 +33,7 @@
 }
 .tamano{
     size: 40;
-    width: 10em;
+    min-width: 30vw;
 }
 .box > img {
     width: 15vw;
@@ -157,4 +157,9 @@ box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.75) !important;
 }
 .vh100{
     height: 40vh;
+}
+.hola{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
 }

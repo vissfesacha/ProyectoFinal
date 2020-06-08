@@ -159,7 +159,7 @@ function onSearchHandle(e){
               </DropdownItem>
             </DropdownMenu>
           </UncontrolledDropdown>
-          <div className="navbar-translate">
+          <div className="navbar-translate hola">
             <NavbarBrand
               href="/"
               target="_blank"
@@ -172,7 +172,8 @@ function onSearchHandle(e){
 
 
             <form action={"/search/"+Search}>
-              <input onChange={onSearchHandle} className="tamano pa2 ba b--black bg-lightest-black" type="search" name="" placeholder="Buscar" />
+              <input onChange={onSearchHandle} className="tamano pa2 ba b--black bg-lightest-black" type="search" name="" 
+              placeholder= "Buscar..." />
             </form>
     
 
