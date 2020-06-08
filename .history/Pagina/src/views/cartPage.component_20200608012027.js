@@ -61,24 +61,7 @@ function CartPage(props) {
           })
           setValue(value => ++value)
     }
-
     const removeAllCart =() =>{
-
-        const reValues ={
-            userid: Token,
-            prods: ProdsCart,
-            value: cont,
-            date: Date.now()
-            }
-
-       axios.post('http://localhost:5000/receipt/create', reValues)
-        .then(response => {
-            alert("Compra Realizada\n Recibo:"+response.data._id+"\n Total: $"+response.data.value+"\n Date: "+response.data.date)
-        })
-        .catch((error) => {
-            console.log(error);
-        })
-
         const IDs ={
             userid: Token,
             prods: ProdsCart
@@ -100,6 +83,11 @@ function CartPage(props) {
             .catch((error) => {
                 console.log(error);
             })
+            
+
+
+
+
         setValue(value => ++value)
     }
     const renderItems = () =>{

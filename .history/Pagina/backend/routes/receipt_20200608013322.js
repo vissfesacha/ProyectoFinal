@@ -5,15 +5,19 @@ let Receipt = require('../models/receipt.model');
 
 
 router.route('/').get((req, res) => {
-    Receipt.find()
+    User.find()
       .then(receipts => res.json(receipts))
       .catch(err => res.status(400).json('Error: ' + err));
   });
 
   router.post('/create', (req, res) => {
+    const userid = req.body.userid;
+    const value = Number(req.body.value);
+    const date = Date.parse(req.body.date);
+    console.log()
     const newReceipt = new Receipt({
       userid: req.body.userid,
-      products: req.body.prods,
+      products: req.body.products,
       value: req.body.value,
       date: req.body.date
     });

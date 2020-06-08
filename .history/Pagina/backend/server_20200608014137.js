@@ -27,7 +27,6 @@ const receiptRouter = require('./routes/receipt');
 
 app.use('/products', productsRouter);
 app.use('/users', usersRouter);
-app.use('/receipt', receiptRouter);
 app.use(express.static('upload'));
 
 app.listen(port, () => {

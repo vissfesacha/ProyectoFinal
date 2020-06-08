@@ -11,6 +11,7 @@ router.route('/').get((req, res) => {
   });
 
   router.post('/create', (req, res) => {
+    console.log('HOLIWIS')
     const newReceipt = new Receipt({
       userid: req.body.userid,
       products: req.body.prods,

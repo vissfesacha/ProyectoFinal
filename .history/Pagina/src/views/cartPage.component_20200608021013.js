@@ -73,7 +73,8 @@ function CartPage(props) {
 
        axios.post('http://localhost:5000/receipt/create', reValues)
         .then(response => {
-            alert("Compra Realizada\n Recibo:"+response.data._id+"\n Total: $"+response.data.value+"\n Date: "+response.data.date)
+            var prueba ={}
+            alert("Compra Realizada\nRecibo:"+response.data._id+"\n hola")
         })
         .catch((error) => {
             console.log(error);

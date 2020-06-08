@@ -23,11 +23,10 @@ connection.once('open', () => {
 
 const productsRouter = require('./routes/products');
 const usersRouter = require('./routes/users');
-const receiptRouter = require('./routes/receipt');
+const usersRouter = require('./routes/users');
 
 app.use('/products', productsRouter);
 app.use('/users', usersRouter);
-app.use('/receipt', receiptRouter);
 app.use(express.static('upload'));
 
 app.listen(port, () => {
