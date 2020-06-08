@@ -86,13 +86,14 @@ export default class CreateUser extends Component {
         backgroundImage: "url(" + require("assets/img/bg11.jpg") + ")",
         backgroundSize: "cover",
         backgroundPosition: "top center",
-        minHeight: "700px"
+        minHeight: "700px",
+        height:"100vh"
       }}
     >
       <Container>
         <Row>
           <Card className="card-signup" data-background-color="blue">
-            <Form action="" className="form" method="">
+            <Form action="" onSubmit={this.onSubmit} className="form" method="">
               <CardHeader className="text-center">
                 <CardTitle className="title-up" tag="h3">
                   Sign Up
@@ -137,12 +138,16 @@ export default class CreateUser extends Component {
                     </InputGroupText>
                   </InputGroupAddon>
                   <Input
-                    placeholder="First Name..."
+                    placeholder="Username"
                     type="text"
                     onFocus={() => this.state.firstFocus=true}
                     onBlur={() => this.state.firstFocus=false}
+                    value={this.state.username} 
+                    onChange={this.onChangeUsername}
                   ></Input>
                 </InputGroup>
+
+
                 <InputGroup
                   className={
                     "no-border" + (this.state.lastFocus ? " input-group-focus" : "")
@@ -154,12 +159,16 @@ export default class CreateUser extends Component {
                     </InputGroupText>
                   </InputGroupAddon>
                   <Input
-                    placeholder="Last Name..."
-                    type="text"
+                    placeholder="Password"
+                    type="password"
                     onFocus={() => this.state.LastFocus=true}
                     onBlur={() => this.state.lastFocus=false}
+                    value={this.state.password} 
+                    onChange={this.onChangePassword}
                   ></Input>
                 </InputGroup>
+
+
                 <InputGroup
                   className={
                     "no-border" + (this.state.emailFocus ? " input-group-focus" : "")
@@ -171,38 +180,23 @@ export default class CreateUser extends Component {
                     </InputGroupText>
                   </InputGroupAddon>
                   <Input
-                    placeholder="Email..."
-                    type="text"
+                    placeholder="Email"
+                    type="email"
                     onFocus={() => this.state.emailFocus=true}
                     onBlur={() => this.state.emailFocus=false}
+                    value={this.state.email}
+                     onChange={this.onChangeEmail}
                   ></Input>
                 </InputGroup>
+
               </CardBody>
               <CardFooter className="text-center">
-                <Button
-                  className="btn-neutral btn-round"
-                  color="info"
-                  href="#pablo"
-                  onClick={e => e.preventDefault()}
-                  size="lg"
-                >
-                  Get Started
-                </Button>
+              <input type="submit" value="Sign Up" className="btn btn-primary" />
               </CardFooter>
             </Form>
           </Card>
         </Row>
-        <div className="col text-center">
-          <Button
-            className="btn-round btn-white"
-            color="default"
-            to="/login-page"
-            outline
-            size="lg"
-          >
-            View Login Page
-          </Button>
-        </div>
+        
       </Container>
     </div>
     )
