@@ -9,9 +9,7 @@ import "assets/demo/demo.css";
 import "assets/demo/nucleo-icons-page-styles.css";
 
 
-import '@fortawesome/fontawesome-free/css/all.min.css';
-import 'bootstrap-css-only/css/bootstrap.min.css';
-import 'mdbreact/dist/css/mdb.css';
+
 // pages for this kit
 import * as serviceWorker from './serviceWorker';
 

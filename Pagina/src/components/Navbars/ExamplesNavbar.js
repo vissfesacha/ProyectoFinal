@@ -136,36 +136,13 @@ function onSearchHandle(e){
               <span className="button-bar"></span>
               <span className="button-bar"></span>
             </DropdownToggle>
-            <DropdownMenu aria-labelledby="navbarDropdown">
-              <DropdownItem header tag="a">
-                Dropdown header
-              </DropdownItem>
-              <DropdownItem href="#pablo" onClick={e => e.preventDefault()}>
-                Action
-              </DropdownItem>
-              <DropdownItem href="#pablo" onClick={e => e.preventDefault()}>
-                Another action
-              </DropdownItem>
-              <DropdownItem href="#pablo" onClick={e => e.preventDefault()}>
-                Something else here
-              </DropdownItem>
-              <DropdownItem divider></DropdownItem>
-              <DropdownItem href="#pablo" onClick={e => e.preventDefault()}>
-                Separated link
-              </DropdownItem>
-              <DropdownItem divider></DropdownItem>
-              <DropdownItem href="#pablo" onClick={e => e.preventDefault()}>
-                One more separated link
-              </DropdownItem>
-            </DropdownMenu>
           </UncontrolledDropdown>
           <div className="navbar-translate hola">
             <NavbarBrand
               href="/"
-              target="_blank"
               id="navbar-brand"
             >
-              Home
+              HOME
             </NavbarBrand>
 
 
