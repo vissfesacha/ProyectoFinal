@@ -68,12 +68,11 @@ export default class Login extends Component {
 
    
 
-   // this.setState({
- //     username: '',
-   //   password:''
-  //  })
+  
   }
 
+  
+  
   render() {
     return (
       <div

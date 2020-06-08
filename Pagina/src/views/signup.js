@@ -23,6 +23,8 @@ export default class CreateUser extends Component {
 
     this.onChangeUsername = this.onChangeUsername.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
+    this.onChangePassword2 = this.onChangePassword2.bind(this);
+    this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
     this.state = {
@@ -45,12 +47,23 @@ export default class CreateUser extends Component {
       password: e.target.value
     })
   }
+  onChangePassword2(e) {
+    this.setState({
+      password2: e.target.value
+    })
+  }
+  onChangeEmail(e) {
+    this.setState({
+      email: e.target.value
+    })
+  }
 
   onSubmit(e) {
     e.preventDefault();
 
     const user = {
       username: this.state.username,
+      email:this.state.email,
       password: this.state.password
     }
 
