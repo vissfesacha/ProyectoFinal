@@ -57,7 +57,9 @@ export default class Login extends Component {
   .then(res => {
    localStorage.setItem('token',res.data.token);
    localStorage.setItem('admin',res.data.admin);
- 
+    if (!res.data.token) {
+    throw new Error("ERROR!");
+   }
    alert("Successful login")
    this.props.history.push('/');
   })

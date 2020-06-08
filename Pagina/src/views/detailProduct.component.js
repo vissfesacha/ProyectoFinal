@@ -28,7 +28,7 @@ function DetailProduct (props){
 
 
     const addToCart = (_id) => {
-        console.log('entra y ademas el id es: '+_id)
+    
         var userId=''
         try{
             userId= jwt_decode(localStorage.getItem("token")).userId;
