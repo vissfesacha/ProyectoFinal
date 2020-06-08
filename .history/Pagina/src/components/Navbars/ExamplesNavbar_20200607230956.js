@@ -48,6 +48,14 @@ function ExamplesNavbar(props) {
     };
   });
 
+ 
+
+
+
+
+
+
+
 const jwt =localStorage.getItem("token");
 var admin =localStorage.getItem("admin");
 var logeado,adminProducts,adminCreate,usercart,loggeduser,loggeduser2;
@@ -94,13 +102,14 @@ if (admin  === "true") {
          </NavItem>;
 }
 
+
 function onSearchHandle(e){
-
-  e.preventDefault(); // Ensure it is only this code that rusn
-  console.log('entro y ',e.target.value)
-  setSearch(e.target.value)
+  if(e.keyCode === 13){
+    e.preventDefault(); // Ensure it is only this code that rusn
+    console.log('entro y ',e.target.value)
+    setSearch(e.target.value)
 }
-
+}
   return (
     <>
       {collapseOpen ? (
@@ -162,10 +171,14 @@ function onSearchHandle(e){
 
 
 
-            <form action={"/search/"+ Search}>
+            <form>
               <input onChange={onSearchHandle} className="tamano pa2 ba b--black bg-lightest-black" type="search" name="" placeholder="Buscar" />
             </form>
-            
+    
+
+
+
+
                 
             <UncontrolledTooltip target="#navbar-brand">
               Designed by JesuSachaFalquez
@@ -201,11 +214,7 @@ function onSearchHandle(e){
               {adminCreate}
               {usercart}
               {logeado}
-              <NavItem>
-        <NavLink to="/search/" tag={Link}>
-            All Products
-         </NavLink>
-        </NavItem>
+           
 
               <NavItem>
                 <NavLink

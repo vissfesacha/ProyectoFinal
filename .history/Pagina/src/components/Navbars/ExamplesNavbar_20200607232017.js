@@ -165,7 +165,15 @@ function onSearchHandle(e){
             <form action={"/search/"+ Search}>
               <input onChange={onSearchHandle} className="tamano pa2 ba b--black bg-lightest-black" type="search" name="" placeholder="Buscar" />
             </form>
-            
+    
+            <NavItem>
+        <NavLink to="/search/" tag={Link}>
+            All Shoes
+         </NavLink>
+        </NavItem>
+
+
+
                 
             <UncontrolledTooltip target="#navbar-brand">
               Designed by JesuSachaFalquez
@@ -201,11 +209,7 @@ function onSearchHandle(e){
               {adminCreate}
               {usercart}
               {logeado}
-              <NavItem>
-        <NavLink to="/search/" tag={Link}>
-            All Products
-         </NavLink>
-        </NavItem>
+           
 
               <NavItem>
                 <NavLink

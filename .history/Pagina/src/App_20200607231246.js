@@ -20,13 +20,14 @@ import AuthenticatorComponent from './components/Authenticator.component';
 import Prueba from 'views/prueba'
 import AdminAutenticator from './components/AdminAutenticator';
 //
+//
 function App() {
   return (
     <Router>
     <div >
     <Route path="/edit/:id" component={EditProduct} /> 
     <Route path="/search/:criteria" exact component={Search} />
-    <Route path="/search/" exact component={Search} />
+    
     <Route path="/" exact component={LandingPage} />
 
     <Route path="/logout" exact component={Logout} />

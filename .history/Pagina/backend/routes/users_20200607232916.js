@@ -225,6 +225,7 @@ router.post('/RemoveAllCart', async (req, res) => {
 
 router.get('/carProducts/:userid', async (req, res) => {
   
+  console.log()
     var productos=[];
     const user= await User.findById({_id:req.params.userid});
 
@@ -246,6 +247,9 @@ router.get('/carProducts/:userid', async (req, res) => {
     quantity:user.cart[i].quantity,
     total:user.cart[i].quantity*pro.value
   });
+  
+  console.log('xd')
+  console.log(newpro)
   
   productos.push(newpro);
  

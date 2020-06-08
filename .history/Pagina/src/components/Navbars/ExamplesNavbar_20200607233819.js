@@ -201,11 +201,7 @@ function onSearchHandle(e){
               {adminCreate}
               {usercart}
               {logeado}
-              <NavItem>
-        <NavLink to="/search/" tag={Link}>
-            All Products
-         </NavLink>
-        </NavItem>
+           
 
               <NavItem>
                 <NavLink
