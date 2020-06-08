@@ -27,10 +27,10 @@ function CartPage(props) {
         .catch((error) => {
             console.log(error);
         })
-        //console.log(ProdsCart)
-            if(ProdsCart){
-                setShowTotal(true)
-            }
+        console.log(ProdsCart)
+        if(ProdsCart){
+            setShowTotal(true)
+        }
         }
     }, [Token,value])
 

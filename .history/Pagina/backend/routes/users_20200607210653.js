@@ -210,6 +210,8 @@ res.status(200).json(xd)
 
 router.post('/RemoveAllCart', async (req, res) => {
 
+  
+
   const xd=await User.findOneAndUpdate(
     { _id: req.body.userid},
     {  $unset: { "cart": 1 } },
@@ -225,6 +227,8 @@ router.post('/RemoveAllCart', async (req, res) => {
 
 router.get('/carProducts/:userid', async (req, res) => {
   
+  
+  try {
     var productos=[];
     const user= await User.findById({_id:req.params.userid});
 
@@ -247,13 +251,16 @@ router.get('/carProducts/:userid', async (req, res) => {
     total:user.cart[i].quantity*pro.value
   });
   
+  
+  
+  
   productos.push(newpro);
  
 }  
 
         
   res.json(productos);
-  try {
+ 
   } catch (error) {
     res.send(error)
   }

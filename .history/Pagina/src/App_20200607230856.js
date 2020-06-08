@@ -19,7 +19,7 @@ import Logout from "./views/logout";
 import AuthenticatorComponent from './components/Authenticator.component';
 import Prueba from 'views/prueba'
 import AdminAutenticator from './components/AdminAutenticator';
-//
+
 function App() {
   return (
     <Router>

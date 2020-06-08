@@ -22,12 +22,13 @@ function CartPage(props) {
         if(Token){
         axios.get('http://localhost:5000/users/carProducts/'+Token)
         .then(response => {
+            console.log
             setProdsCart(response.data)
         })
         .catch((error) => {
             console.log(error);
         })
-        //console.log(ProdsCart)
+        console.log(ProdsCart)
             if(ProdsCart){
                 setShowTotal(true)
             }
