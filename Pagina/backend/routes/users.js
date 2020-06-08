@@ -26,7 +26,7 @@ router.post('/signup', (req, res) => {
       const user = new User({
         username: req.body.username,
         password: hash,
-       
+
       });
       user.save()
         .then(() => res.json('User added'))
@@ -36,6 +36,7 @@ router.post('/signup', (req, res) => {
 
 });
 router.post('/login', (req, res) => {
+  
   User.find({ username: req.body.username })
     .exec()
     .then(user => {
@@ -47,25 +48,24 @@ router.post('/login', (req, res) => {
           return res.status(401).json({ message: 'Authentication failed' });
         }
         if (result) {
-         const token= jwt.sign({
+            const token = jwt.sign({
             username: user[0].username,
             userId: user[0]._id
-          },"Secretin",
-          {
-            expiresIn:"1h"
-          }
+          }, "Secretin",
+            {
+              expiresIn: "1h"
+            }
           );
-         
+
 
           return res.send(
-            {token:token,
-              admin:user[0].admin
+            {
+              token: token,
+              admin: user[0].admin
             });
-      
+
         }
-        res.status(200).json({
-          message: 'Authentication failed'
-        });
+         res.send( "" );
       });
     })
     .catch(err => res.status(400).json('Error: ' + err));
@@ -74,33 +74,33 @@ router.post('/login', (req, res) => {
 });
 
 router.post('/auth', (req, res) => {
- 
-    try {
-      const decoded = jwt.verify(req.body.token,"Secretin");  
-      
-     if (decoded) {
-         res.send(decoded);
-     }
-    } catch (error) {
-      return res.status(401).json({
-        message:'Authentication Failed'
-    });
+
+  try {
+    const decoded = jwt.verify(req.body.token, "Secretin");
+
+    if (decoded) {
+      res.send(decoded);
     }
+  } catch (error) {
+    return res.status(401).json({
+      message: 'Authentication Failed'
+    });
+  }
 });
 
 router.post('/checkAdmin', async (req, res) => {
- 
+
   try {
-    const user= await User.findById({_id:req.body.userId});
-    if (user.admin==true) {
+    const user = await User.findById({ _id: req.body.userId });
+    if (user.admin == true) {
       res.send("xd");
-    }else{
+    } else {
       throw new Error("ERROR!");
     }
   } catch (error) {
     return res.status(401).json({
-      message:'Authentication Failed'
-  });
+      message: 'Authentication Failed'
+    });
   }
 });
 
@@ -109,56 +109,56 @@ router.post('/checkAdmin', async (req, res) => {
 
 
 
-router.post("/addToCart",  (req,res) => { 
+router.post("/addToCart", (req, res) => {
 
   User.findById({ _id: req.body.userid }, (err, userInfo) => {
     let duplicate = false;
-  
-    
-  
+
+
+
     userInfo.cart.forEach((item) => {
-        if (item.productID == req.body.id) {
-                duplicate = true;
-         }
+      if (item.productID == req.body.id) {
+        duplicate = true;
+      }
     })
-   
-  
-   
+
+
+
     if (duplicate) {
 
 
-    
-  User.findOneAndUpdate(
-  { _id: req.body.userid, "cart.productID": req.body.id },
-  { $inc: { "cart.$.quantity": 1 } },
-  { new: true }, 
-  (err, userInfo) => {
-      if (err) return res.json({ success: false, err });
-      res.status(200).json(userInfo.cart)
-  }
-)
-        
-    } else {
-        
 
-      
-        User.findByIdAndUpdate({ _id: req.body.userid },
-            {
-                $push: {
-                    cart: {
-                        productID: req.body.id,
-                        quantity: 1,
-                        date: Date.now()
-                    }
-                }
-            },
-            (err, userInfo) => {
-                if (err) return res.json({ success: false, err });
-                res.status(200).json(userInfo)
+      User.findOneAndUpdate(
+        { _id: req.body.userid, "cart.productID": req.body.id },
+        { $inc: { "cart.$.quantity": 1 } },
+        { new: true },
+        (err, userInfo) => {
+          if (err) return res.json({ success: false, err });
+          res.status(200).json(userInfo.cart)
+        }
+      )
+
+    } else {
+
+
+
+      User.findByIdAndUpdate({ _id: req.body.userid },
+        {
+          $push: {
+            cart: {
+              productID: req.body.id,
+              quantity: 1,
+              date: Date.now()
             }
-        )
+          }
+        },
+        (err, userInfo) => {
+          if (err) return res.json({ success: false, err });
+          res.status(200).json(userInfo)
+        }
+      )
     }
-})
+  })
 })
 
 
@@ -166,99 +166,99 @@ router.post("/addToCart",  (req,res) => {
 
 
 router.post('/RemoveCart', async (req, res) => {
-  
-  let borrable=false;
+
+  let borrable = false;
   try {
-  const f=await User.findById({ _id: req.body.userid});
-  f.cart.forEach((item) => {
-    if (item.productID == req.body.id) {
-           if (item.quantity==1) {
-             borrable=true;
-           }else{
-            borrable=false;
-           }
-     }
-})
+    const f = await User.findById({ _id: req.body.userid });
+    f.cart.forEach((item) => {
+      if (item.productID == req.body.id) {
+        if (item.quantity == 1) {
+          borrable = true;
+        } else {
+          borrable = false;
+        }
+      }
+    })
 
-if (borrable==false) {
+    if (borrable == false) {
 
-const xd=await User.findOneAndUpdate(
-  { _id: req.body.userid, "cart.productID": req.body.id },
-  { $inc: { "cart.$.quantity": -1 } },
-  { new: true }
-  
-)
+      const xd = await User.findOneAndUpdate(
+        { _id: req.body.userid, "cart.productID": req.body.id },
+        { $inc: { "cart.$.quantity": -1 } },
+        { new: true }
 
-res.status(200).json(xd)
-}else{
+      )
 
-const xd=await User.findOneAndUpdate(
-  { _id: req.body.userid, "cart.productID": req.body.id },
-  { $pull: { "cart":{"productID":req.body.id}} },
-  { new: true }
-  
-)
+      res.status(200).json(xd)
+    } else {
 
-res.status(200).json(xd)
-}
+      const xd = await User.findOneAndUpdate(
+        { _id: req.body.userid, "cart.productID": req.body.id },
+        { $pull: { "cart": { "productID": req.body.id } } },
+        { new: true }
+
+      )
+
+      res.status(200).json(xd)
+    }
   } catch (error) {
-   res.send({message:"error"})
-       
+    res.send({ message: "error" })
+
   }
-  
+
 });
 
 router.post('/RemoveAllCart', async (req, res) => {
 
-  const xd=await User.findOneAndUpdate(
-    { _id: req.body.userid},
-    {  $unset: { "cart": 1 } },
+  const xd = await User.findOneAndUpdate(
+    { _id: req.body.userid },
+    { $unset: { "cart": 1 } },
     { new: true }
   )
   res.status(200).json(xd)
-    try {
-    } catch (error) {
-     res.send({message:"error"})
-         
-    }
-  });
+  try {
+  } catch (error) {
+    res.send({ message: "error" })
+
+  }
+});
 
 router.get('/carProducts/:userid', async (req, res) => {
-  
-    var productos=[];
-    const user= await User.findById({_id:req.params.userid});
 
-   for (let i = 0; i < user.cart.length; i++) {
-  const pro= await Product.findById({_id:user.cart[i].productID});
- 
-  const newpro = ({
-    _id:pro._id,
-    model:pro.model,
-    code:pro.code,
-    brand:pro.brand,
-    description:pro.description,
-    value:pro.value,
-    size:pro.size,
-    stock:pro.stock,
-    date:pro.date,
-    image:pro.image,
-    style:pro.style,
-    quantity:user.cart[i].quantity,
-    total:user.cart[i].quantity*pro.value
-  });
-  
-  productos.push(newpro);
- 
-}  
+  var productos = [];
+  const user = await User.findById({ _id: req.params.userid });
 
-        
+  for (let i = 0; i < user.cart.length; i++) {
+    const pro = await Product.findById({ _id: user.cart[i].productID });
+
+    const newpro = ({
+      _id: pro._id,
+      model: pro.model,
+      code: pro.code,
+      brand: pro.brand,
+      description: pro.description,
+      value: pro.value,
+      size: pro.size,
+      stock: pro.stock,
+      date: pro.date,
+      image: pro.image,
+      style: pro.style,
+      quantity: user.cart[i].quantity,
+      total: user.cart[i].quantity * pro.value
+    });
+
+    productos.push(newpro);
+
+  }
+
+
   res.json(productos);
   try {
   } catch (error) {
     res.send(error)
   }
 
-  
+
 });
 
 module.exports = router;

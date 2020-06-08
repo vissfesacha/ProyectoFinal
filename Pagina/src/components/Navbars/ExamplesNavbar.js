@@ -96,7 +96,7 @@ if (admin  === "true") {
 
 function onSearchHandle(e){
 
-  e.preventDefault(); // Ensure it is only this code that rusn
+  e.preventDefault(); 
   console.log('entro y ',e.target.value)
   setSearch(e.target.value)
 }
@@ -187,7 +187,7 @@ function onSearchHandle(e){
 
               <NavItem>
                 <NavLink
-                  href="https://twitter.com/sesantanderf"
+                  href="https://twitter.com/ojovallenato_/status/1269869385163984897"
                   target="_blank"
                   id="twitter-tooltip"
                 >
@@ -200,7 +200,7 @@ function onSearchHandle(e){
               </NavItem>
               <NavItem>
                 <NavLink
-                  href="hhttps://www.facebook.com/gustavopetrourrego"
+                  href="https://www.facebook.com/gustavopetrourrego"
                   target="_blank"
                   id="facebook-tooltip"
                 >

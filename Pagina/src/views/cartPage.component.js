@@ -1,7 +1,7 @@
 import React, { useEffect, useState }from 'react'
-//import { Result, Empty } from 'antd';
+
 import axios from 'axios';
-//import jwt_decode from 'jwt-decode';
+
 import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
 
 
@@ -27,7 +27,7 @@ function CartPage(props) {
         .catch((error) => {
             console.log(error);
         })
-        //console.log(ProdsCart)
+       
             if(ProdsCart){
                 setShowTotal(true)
             }
@@ -44,7 +44,7 @@ function CartPage(props) {
             }
         axios.post('http://localhost:5000/users/RemoveCart', IDs)
         .then(response => {
-            //setProdsCart(response.data)
+            
           })
           .catch((error) => {
             console.log(error);
@@ -68,7 +68,7 @@ function CartPage(props) {
             }
         axios.post('http://localhost:5000/users/RemoveAllCart', IDs)
             .then(response => {
-                //setProdsCart(response.data)
+               
             })
             .catch((error) => {
                 console.log(error);

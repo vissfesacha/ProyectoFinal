@@ -1,17 +1,17 @@
 const router = require('express').Router();
 let Products = require('../models/products.model.js');
-const multer= require('multer');
+const multer = require('multer');
 
 
 const storage = multer.diskStorage({
-  destination: function(req, file, cb) {
+  destination: function (req, file, cb) {
     cb(null, './upload/');
   },
-  filename: function(req, file, cb) {
-    cb(null,  file.originalname);
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
   }
 });
-const upload= multer({storage:storage});
+const upload = multer({ storage: storage });
 
 router.route('/').get((req, res) => {
   Products.find()
@@ -20,7 +20,7 @@ router.route('/').get((req, res) => {
 });
 
 router.post('/add', upload.single('file'), (req, res, next) => {
-  
+
   const model = req.body.model;
   const code = req.body.code;
   const brand = req.body.brand;
@@ -30,7 +30,7 @@ router.post('/add', upload.single('file'), (req, res, next) => {
   const stock = req.body.stock;
   const style = req.body.style;
   const date = Date.parse(req.body.date);
-  const image = "/"+req.file.originalname;
+  const image = "/" + req.file.originalname;
 
   const newProduct = new Products({
     model,
@@ -46,8 +46,8 @@ router.post('/add', upload.single('file'), (req, res, next) => {
   });
 
   newProduct.save()
-  .then(() => res.json('Product added'))
-  .catch(err => res.status(400).json('Error: ' + err));
+    .then(() => res.json('Product added'))
+    .catch(err => res.status(400).json('Error: ' + err));
 });
 
 router.route('/:id').get((req, res) => {
@@ -59,7 +59,7 @@ router.route('/:id').get((req, res) => {
 
 
 router.route('/criteria/:criteria').get((req, res) => {
-  Products.find({model :  { $regex: req.params.criteria, $options: 'i'}})
+  Products.find({ model: { $regex: req.params.criteria, $options: 'i' } })
     .then(products => res.json(products))
     .catch(err => res.status(400).json('Error: ' + err));
 });
@@ -83,8 +83,8 @@ router.post('/update/:id', upload.single('file'), (req, res, next) => {
       products.stock = req.body.stock;
       products.style = req.body.style;
       products.date = Date.parse(req.body.date);
-      products.image= "/"+req.file.originalname;
-     
+      products.image = "/" + req.file.originalname;
+
       products.save()
         .then(() => res.json('Product updated'))
         .catch(err => res.status(400).json('Error: ' + err));

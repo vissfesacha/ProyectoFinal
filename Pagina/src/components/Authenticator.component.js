@@ -19,31 +19,25 @@ class AuthenticatorComponent extends Component{
       token:localStorage.getItem("token")
 
     }
-    console.log("AHWBDHJGSVHJASDGVJHASDJGVHDS",jwt);
+    
     if (!jwt) {
       this.props.history.push('/login');
     }
-    //, { headers: { Authorization: `Bearer ${jwt}` } }
+  
     axios.post('http://localhost:5000/users/auth',jwt)
     .then(res => {
       this.state.response="A";
-      console.log(res.data);  //Mostrar: bienvenido "Sebastian", dado el decoded hacer un request para saber a traves del id el nombre de la persona
+      console.log(res.data); 
     })       
     .catch(err => {
-        localStorage.removeItem('token');  // Funciona, corregir en un futuro ya que en caso de que el servidor sea el que falle, va seguir enviandolo al login aunque el user y pass esten bien
+        localStorage.removeItem('token');  
         this.props.history.push('/login');
       });
   
 
    }
 render() {
-  /* 
-    if (this.state.response === undefined) {
-      return (
-        <div><h1>Loading...</h1></div>
-      );
-    }
-*/
+  
     return (
       <div>
         {this.props.children}
