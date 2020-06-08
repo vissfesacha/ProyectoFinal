@@ -210,6 +210,8 @@ res.status(200).json(xd)
 
 router.post('/RemoveAllCart', async (req, res) => {
 
+  
+
   const xd=await User.findOneAndUpdate(
     { _id: req.body.userid},
     {  $unset: { "cart": 1 } },

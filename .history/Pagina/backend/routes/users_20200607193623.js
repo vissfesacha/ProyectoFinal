@@ -244,7 +244,7 @@ router.get('/carProducts/:userid', async (req, res) => {
     stock:pro.stock,
     date:pro.date,
     image:pro.image,
-    style:pro.style,
+    
     quantity:user.cart[i].quantity,
     total:user.cart[i].quantity*pro.value
   });
