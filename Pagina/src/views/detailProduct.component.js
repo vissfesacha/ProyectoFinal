@@ -26,7 +26,7 @@ function DetailProduct (props){
         axios.post('http://localhost:5000/users/addToCart', ID)
             .then(res => console.log(res.data))
             .catch((error) => {
-                console.log(error);
+                alert("Por favor ingrese sesion antes de comprar")
               });
     }
 
