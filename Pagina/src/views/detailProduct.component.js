@@ -63,10 +63,10 @@ function DetailProduct (props){
                 <Col className="tc" sm="9" lg="9" md="9">
                     <div>
                     <h1>{Product.model}</h1>
-                        <img className="vh100" src={Product.image}/>
+                        <img className="vh100" style={{width: '45%',minWidth: '400px' ,minHeight:'80vh'}} src={Product.image}/>
                     </div>
                 </Col>
-                <Col Col  sm="3" lg="3" md="3">
+                <Col Col  style={{paddingTop:'200px',minWidth:'200px'}} sm="3" lg="3" md="3">
                 <div>
                     <h2>ProductInfo</h2>
                     <ul style={{width: '100%', padding: '2rem'}}>
@@ -81,7 +81,7 @@ function DetailProduct (props){
                     <p style ={{color:'white'}}>Add to Cart</p>
                     </Button>
                 </div>
-                </Col><                h2>Reviews</h2>
+                </Col>
 
             </Row>
         </div>
