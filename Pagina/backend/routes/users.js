@@ -226,39 +226,39 @@ router.post('/RemoveAllCart', async (req, res) => {
 
 router.get('/carProducts/:userid', async (req, res) => {
   
-  
-  try {
-    var productos=[];
-    const user= await User.findById({_id:req.params.userid});
+  var productos=[];
+  const user= await User.findById({_id:req.params.userid});
 
-   for (let i = 0; i < user.cart.length; i++) {
-  const pro= await Product.findById({_id:user.cart[i].productID});
- 
-  const newpro = ({
-    _id:pro._id,
-    model:pro.model,
-    code:pro.code,
-    brand:pro.brand,
-    description:pro.description,
-    value:pro.value,
-    size:pro.size,
-    stock:pro.stock,
-    date:pro.date,
-    image:pro.image,
-    style:pro.style,
-    quantity:user.cart[i].quantity,
-    total:user.cart[i].quantity*pro.value
-  });
-  
-  
-  
-  
-  productos.push(newpro);
- 
+ for (let i = 0; i < user.cart.length; i++) {
+const pro= await Product.findById({_id:user.cart[i].productID});
+
+const newpro = ({
+  _id:pro._id,
+  model:pro.model,
+  code:pro.code,
+  brand:pro.brand,
+  description:pro.description,
+  value:pro.value,
+  size:pro.size,
+  stock:pro.stock,
+  date:pro.date,
+  image:pro.image,
+  style:pro.style,
+  quantity:user.cart[i].quantity,
+  total:user.cart[i].quantity*pro.value
+});
+
+
+
+
+productos.push(newpro);
+
 }  
 
-        
-  res.json(productos);
+      
+res.json(productos);
+  try {
+   
  
   } catch (error) {
     res.send(error)
