@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-
+import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
+import "tachyons";
 export default class Login extends Component {
   constructor(props) {
     super(props);
@@ -51,40 +52,41 @@ export default class Login extends Component {
 
    
 
-   // this.setState({
- //     username: '',
-   //   password:''
-  //  })
+  
   }
 
+  
+  
   render() {
     return (
-      <div>
-        <h3>Login </h3>
-        <form onSubmit={this.onSubmit}>
-          <div className="form-group"> 
-            <label>Username: </label>
-            <input  type="text"
-                required
-                className="form-control"
-                value={this.state.username}
-                onChange={this.onChangeUsername}
-                />
-          </div>
-          <div className="form-group">
-          <label>Password: </label>
-          <input 
-              type="password" 
-              className="form-control"
-              value={this.state.password}
-              onChange={this.onChangePassword}
-              />
-        </div>
-          <div className="form-group">
-            <input type="submit" value="Login" className="btn btn-primary" />
-          </div>
-        </form>
-      </div>
-    )
+      <MDBContainer >
+        <MDBRow >
+          <MDBCol md="6">
+
+          <form onSubmit ={this.onSubmit}>
+              <p className="h5 text-center mb-4">Sign in</p>
+
+              <div className="grey-text">
+                <MDBInput label="Type your Username" icon="user" group type="text"  value={this.state.username} required  onChange={this.onChangeUsername}/>
+
+              
+                <MDBInput label="Type your password" icon="lock" group type="password" validate   
+                value={this.state.password}
+              onChange={this.onChangePassword}/>
+              </div>
+          
+               
+
+
+              <div className="text-center">
+              <input type="submit" value="Login" className="btn btn-primary" />
+              </div>
+
+            </form>
+
+          </MDBCol>
+        </MDBRow>
+      </MDBContainer>
+      );
   }
 }

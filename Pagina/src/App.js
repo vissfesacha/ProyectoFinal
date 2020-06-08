@@ -1,6 +1,6 @@
 import React from 'react';
 import {BrowserRouter as Router,Route} from "react-router-dom";
-
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 import LandingPage from "./views/landing";
 import ProductsList from "./views/productsList.component";

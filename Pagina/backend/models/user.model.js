@@ -15,6 +15,11 @@ const userSchema = new Schema({
         type :String ,
         required:true
       },
+      email:{
+        type :String ,
+        unique: true,
+        required:false
+      },
    cart: {
         type: Array,
         default: []
