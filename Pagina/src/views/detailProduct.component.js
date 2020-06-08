@@ -29,22 +29,15 @@ function DetailProduct (props){
 
     const addToCart = (_id) => {
         console.log('entra y ademas el id es: '+_id)
-        var userId=''
-        try{
-            userId= jwt_decode(localStorage.getItem("token")).userId;
-            const ID ={
-                id: _id,
-                 userid: userId
-                }
-            axios.post('http://localhost:5000/users/addToCart', ID)
-                .then(res => console.log(res.data))
-                .catch((error) => {
-                   console.log(error)
-                  });
-        }catch{
-            alert("Por favor ingrese sesion antes de comprar")
-        }
-        
+        const ID ={
+            id: _id,
+             userid: jwt_decode(localStorage.getItem("token")).userId
+            }
+        axios.post('http://localhost:5000/users/addToCart', ID)
+            .then(res => console.log(res.data))
+            .catch((error) => {
+                console.log(error);
+              });
     }
     React.useEffect(() => {
         document.body.classList.add("landing-page");
@@ -76,14 +69,13 @@ function DetailProduct (props){
                         <li>Brand: {Product.brand}</li>
                         <li>Value: {Product.value}</li>
                         <li>Size: {Product.size}</li>
-                        <li>Style: {Product.style}</li>
                     </ul>
                     <Button style={{backgroundColor: 'black'}} onClick={() => addToCart(Product._id)}>
                     <p style ={{color:'white'}}>Add to Cart</p>
                     </Button>
                 </div>
-                </Col>
-                <h2>Reviews</h2>
+                </Col><                h2>Reviews</h2>
+
             </Row>
         </div>
         </>
