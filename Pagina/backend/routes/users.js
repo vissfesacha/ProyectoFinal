@@ -25,6 +25,7 @@ router.post('/signup', (req, res) => {
 
       const user = new User({
         username: req.body.username,
+        email:req.body.email,
         password: hash,
        
       });
@@ -166,8 +167,9 @@ router.post("/addToCart",  (req,res) => {
 
 
 router.post('/RemoveCart', async (req, res) => {
-  let borrable=false;
   
+  let borrable=false;
+  try {
   const f=await User.findById({ _id: req.body.userid});
   f.cart.forEach((item) => {
     if (item.productID == req.body.id) {
@@ -200,19 +202,11 @@ const xd=await User.findOneAndUpdate(
 
 res.status(200).json(xd)
 }
-
-
-  
-  try {
-   
-      
   } catch (error) {
    res.send({message:"error"})
        
   }
   
-  
-
 });
 
 router.post('/RemoveAllCart', async (req, res) => {
@@ -251,6 +245,7 @@ router.get('/carProducts/:userid', async (req, res) => {
     stock:pro.stock,
     date:pro.date,
     image:pro.image,
+    style:pro.style,
     quantity:user.cart[i].quantity,
     total:user.cart[i].quantity*pro.value
   });

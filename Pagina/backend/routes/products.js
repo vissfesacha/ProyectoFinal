@@ -28,14 +28,10 @@ router.post('/add', upload.single('file'), (req, res, next) => {
   const value = Number(req.body.value);
   const size = req.body.size;
   const stock = req.body.stock;
+  const style = req.body.style;
   const date = Date.parse(req.body.date);
   const image = "/"+req.file.originalname;
 
-  
-
-
- 
-  
   const newProduct = new Products({
     model,
     code,
@@ -44,6 +40,7 @@ router.post('/add', upload.single('file'), (req, res, next) => {
     value,
     size,
     stock,
+    style,
     date,
     image
   });
@@ -62,7 +59,6 @@ router.route('/:id').get((req, res) => {
 
 
 router.route('/criteria/:criteria').get((req, res) => {
- 
   Products.find({model :{ $regex: '.*' + req.params.criteria + '.*' }})
     .then(products => res.json(products))
     .catch(err => res.status(400).json('Error: ' + err));
@@ -85,6 +81,7 @@ router.post('/update/:id', upload.single('file'), (req, res, next) => {
       products.value = Number(req.body.value);
       products.size = req.body.size;
       products.stock = req.body.stock;
+      products.style = req.body.style;
       products.date = Date.parse(req.body.date);
       products.image= "/"+req.file.originalname;
      
